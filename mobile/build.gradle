@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'com.tmack.sermonstream'
+            keyPassword 'androiddev'
+            storeFile file('/Users/tmack/dev/keystore.jks')
+            storePassword 'androiddev'
+        }
+    }
+    compileSdkVersion 21 // 20
+    buildToolsVersion "21.1.0"
+    defaultConfig {
+        applicationId "com.tmack.sermonstream"
+        minSdkVersion 21
+        targetSdkVersion 21
+        versionCode 2
+        versionName "0.1.1"
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.config
+            versionNameSuffix '.butter-finger'
+        }
+        debug {
+            minifyEnabled
+            signingConfig signingConfigs.config
+            versionNameSuffix '.butter-finger.debug-build-' + getDate()
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // You must install or update the Support Repository through the SDK manager to use this dependency.
+    compile 'com.android.support:support-v4:21.0.0'
+    compile 'com.android.support:mediarouter-v7:18.0.0'
+    // android-L release candidate support libraries
+    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:cardview-v7:21.0.0'
+    compile 'com.android.support:recyclerview-v7:21.0.0'
+    compile 'com.android.support:palette-v7:21.0.0'
+    // chromecast sdk and google analytics sdk
+    compile 'com.google.android.gms:play-services:6.1.71'
+    // include picasso for image loading, maybe switch out for volley later
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    // include both of Google's libraries GSON and Volley for API integration
+    compile 'com.google.code.gson:gson:2.3'
+    compile files('libs/volley.jar')
+    // include ShowcaseView
+    // compile 'com.github.amlcurran.showcaseview:library:5.0.0'
+    // include forked ShowCaseView Library (https://github.com/naddaf/ShowcaseView)
+    compile 'com.github.amlcurran.showcaseview:ShowCaseLibrary@aar'
+    // to get around https://code.google.com/p/android/issues/detail?id=52962, we need to
+    // depend on both debug and release versions of the library
+    // include dependency on Cast Companion Library
+    //releaseCompile project(path: ':CastCompanionLibrary', configuration: 'release')
+    //debugCompile project(path: ':CastCompanionLibrary', configuration: 'debug')
+    compile project(':CastCompanionLibrary')
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
+}

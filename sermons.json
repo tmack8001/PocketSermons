@@ -1,0 +1,554 @@
+{
+    "sermons": [
+        {
+            "id": "grace-chapel_come-together_1",
+            "date": "2014-09-07T00:00:00.000",
+            "title": "Vision Sunday",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/come-together/vision_sunday.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_come-together",
+                "title": "Come Together",
+                "description": "<p><em>God didn’t create us to go through life alone.</em> We’re designed for deep, satisfying, life-shaping relationships with other people. Yet loneliness – the absence of those kinds of relationships – has been described as “the American epidemic.” It leads us to ask, what is true community, and how do we find it?</p><p>In the most personal of his letters, the apostle Paul helps us understand how to develop authentic, meaningful relationships with each other... relationships that foster spiritual growth and purposeful living. Not just how to find true community, but how to come together and build it.</p><p>Join us this fall for our Come Together teaching series. Each Sunday we’ll look at some of the ways we can all live in true community at church, and in our wider world.</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/ComeTogetherlogofinal640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Bryan",
+                    "familyName": "Wilkerson",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_come-together_2",
+            "date": "2014-09-14T00:00:00.000",
+            "title": "Coming Together In Times Of Struggle",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/come-together/times_of_struggle.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_come-together",
+                "title": "Come Together",
+                "description": "<p><em>God didn’t create us to go through life alone.</em> We’re designed for deep, satisfying, life-shaping relationships with other people. Yet loneliness – the absence of those kinds of relationships – has been described as “the American epidemic.” It leads us to ask, what is true community, and how do we find it?</p><p>In the most personal of his letters, the apostle Paul helps us understand how to develop authentic, meaningful relationships with each other... relationships that foster spiritual growth and purposeful living. Not just how to find true community, but how to come together and build it.</p><p>Join us this fall for our Come Together teaching series. Each Sunday we’ll look at some of the ways we can all live in true community at church, and in our wider world.</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/ComeTogetherlogofinal640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Bryan",
+                    "familyName": "Wilkerson",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_come-together_3",
+            "date": "2014-09-21T00:00:00.000",
+            "title": "Letter From A Roman Jail",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/come-together/letter_roman_jail.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_come-together",
+                "title": "Come Together",
+                "description": "<p><em>God didn’t create us to go through life alone.</em> We’re designed for deep, satisfying, life-shaping relationships with other people. Yet loneliness – the absence of those kinds of relationships – has been described as “the American epidemic.” It leads us to ask, what is true community, and how do we find it?</p><p>In the most personal of his letters, the apostle Paul helps us understand how to develop authentic, meaningful relationships with each other... relationships that foster spiritual growth and purposeful living. Not just how to find true community, but how to come together and build it.</p><p>Join us this fall for our Come Together teaching series. Each Sunday we’ll look at some of the ways we can all live in true community at church, and in our wider world.</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/ComeTogetherlogofinal640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Bryan",
+                    "familyName": "Wilkerson",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_come-together_4",
+            "date": "2014-09-28T00:00:00.000",
+            "title": "People Who Need People",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/come-together/people_who_need_people.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_come-together",
+                "title": "Come Together",
+                "description": "<p><em>God didn’t create us to go through life alone.</em> We’re designed for deep, satisfying, life-shaping relationships with other people. Yet loneliness – the absence of those kinds of relationships – has been described as “the American epidemic.” It leads us to ask, what is true community, and how do we find it?</p><p>In the most personal of his letters, the apostle Paul helps us understand how to develop authentic, meaningful relationships with each other... relationships that foster spiritual growth and purposeful living. Not just how to find true community, but how to come together and build it.</p><p>Join us this fall for our Come Together teaching series. Each Sunday we’ll look at some of the ways we can all live in true community at church, and in our wider world.</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/ComeTogetherlogofinal640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Bryan",
+                    "familyName": "Wilkerson",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_come-together_5",
+            "date": "2014-10-05T00:00:00.000",
+            "title": "Practical Steps to Overcoming the Fear of Being in Community",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/come-together/overcoming_fear_of_community.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_come-together",
+                "title": "Come Together",
+                "description": "<p><em>God didn’t create us to go through life alone.</em> We’re designed for deep, satisfying, life-shaping relationships with other people. Yet loneliness – the absence of those kinds of relationships – has been described as “the American epidemic.” It leads us to ask, what is true community, and how do we find it?</p><p>In the most personal of his letters, the apostle Paul helps us understand how to develop authentic, meaningful relationships with each other... relationships that foster spiritual growth and purposeful living. Not just how to find true community, but how to come together and build it.</p><p>Join us this fall for our Come Together teaching series. Each Sunday we’ll look at some of the ways we can all live in true community at church, and in our wider world.</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/ComeTogetherlogofinal640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Bryan",
+                    "familyName": "Wilkerson",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Senior Pastor"
+                    }
+                },
+                {
+                    "givenName": "Bruce",
+                    "familyName": "Wall",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Global Ministries Christian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_one-word-prayers_1",
+            "date": "2014-07-20T00:00:00.000",
+            "title": "Okay",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/one-word-prayers/okay.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_one_word_prayers",
+                "title": "One Word Prayers",
+                "description": "<p><em>When it comes to prayer, it's easy to think longer is better.</em> We measure the value of prayer by the time we take to express the thoughts in our mind, the feelings on our heart. It's easy to measure prayer in quantity, not quality.</p><p>But what about the times we use just one word? An outburst of joy, an exhale of relief, a snap of frustration, a simple utterance of sheer wonder... are those prayers too?</p><p>Join us on Sundays this summer for our One Word Prayers teaching series, as we gain a deeper understanding of prayer in our everyday lives. Because not all prayers start with, 'Dear Heavenly Father…'</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/OneWordPrayersserieslogo1640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Andrew",
+                    "familyName": "Breton",
+                    "honorificPrefix": "",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Director of Middle School Ministries"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_one-word-prayers_2",
+            "date": "2014-07-29T00:00:00.000",
+            "title": "Please",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/one-word-prayers/please.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_one_word_prayers",
+                "title": "One Word Prayers",
+                "description": "<p><em>When it comes to prayer, it's easy to think longer is better.</em> We measure the value of prayer by the time we take to express the thoughts in our mind, the feelings on our heart. It's easy to measure prayer in quantity, not quality.</p><p>But what about the times we use just one word? An outburst of joy, an exhale of relief, a snap of frustration, a simple utterance of sheer wonder... are those prayers too?</p><p>Join us on Sundays this summer for our One Word Prayers teaching series, as we gain a deeper understanding of prayer in our everyday lives. Because not all prayers start with, 'Dear Heavenly Father…'</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/OneWordPrayersserieslogo1640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Tim",
+                    "familyName": "Ghali",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Pastor of Community Life"
+                    }
+                }
+            ]
+        },
+        {
+             "id": "grace-chapel_one-word-prayers_3",
+             "date": "2014-08-10T00:00:00.000",
+             "title": "@#$%!",
+             "description": "",
+             "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/one-word-prayers/@#$%!.mp4",
+             "church": {
+                 "id": "grace-chapel",
+                 "name": "Grace Chapel",
+                 "denomination": "Independent"
+             },
+             "series": {
+                 "id": "grace-chapel_one_word_prayers",
+                 "title": "One Word Prayers",
+                 "description": "<p><em>When it comes to prayer, it's easy to think longer is better.</em> We measure the value of prayer by the time we take to express the thoughts in our mind, the feelings on our heart. It's easy to measure prayer in quantity, not quality.</p><p>But what about the times we use just one word? An outburst of joy, an exhale of relief, a snap of frustration, a simple utterance of sheer wonder... are those prayers too?</p><p>Join us on Sundays this summer for our One Word Prayers teaching series, as we gain a deeper understanding of prayer in our everyday lives. Because not all prayers start with, 'Dear Heavenly Father…'</p>",
+                 "imageUri": "http://images.acswebnetworks.com/1/2320/OneWordPrayersserieslogo1640.jpg"
+             },
+             "speakers": [
+                 {
+                     "givenName": "Robert",
+                     "familyName": "Frazier",
+                     "honorificPrefix": "Pastor",
+                     "honorificSuffix": "",
+                     "affiliation": {
+                         "name": "Grace Chapel",
+                         "role": "Pastor of Wilmington Campus"
+                     }
+                 }
+             ]
+        },
+        {
+            "id": "grace-chapel_one-word-prayers_4",
+            "date": "2014-08-17T00:00:00.000",
+            "title": "Sigh",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/one-word-prayers/sigh.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_one_word_prayers",
+                "title": "One Word Prayers",
+                "description": "<p><em>When it comes to prayer, it's easy to think longer is better.</em> We measure the value of prayer by the time we take to express the thoughts in our mind, the feelings on our heart. It's easy to measure prayer in quantity, not quality.</p><p>But what about the times we use just one word? An outburst of joy, an exhale of relief, a snap of frustration, a simple utterance of sheer wonder... are those prayers too?</p><p>Join us on Sundays this summer for our One Word Prayers teaching series, as we gain a deeper understanding of prayer in our everyday lives. Because not all prayers start with, 'Dear Heavenly Father…'</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/OneWordPrayersserieslogo1640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Bryan",
+                    "familyName": "Wilkerson",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_one-word-prayers_5",
+            "date": "2014-08-24T00:00:00.000",
+            "title": "Thanks",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/one-word-prayers/thanks.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_one_word_prayers",
+                "title": "One Word Prayers",
+                "description": "<p><em>When it comes to prayer, it's easy to think longer is better.</em> We measure the value of prayer by the time we take to express the thoughts in our mind, the feelings on our heart. It's easy to measure prayer in quantity, not quality.</p><p>But what about the times we use just one word? An outburst of joy, an exhale of relief, a snap of frustration, a simple utterance of sheer wonder... are those prayers too?</p><p>Join us on Sundays this summer for our One Word Prayers teaching series, as we gain a deeper understanding of prayer in our everyday lives. Because not all prayers start with, 'Dear Heavenly Father…'</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/OneWordPrayersserieslogo1640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Dave",
+                    "familyName": "Ripper",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Pastor of Young Adults Ministry"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "grace-chapel_one-word-prayers_5",
+            "date": "2014-08-24T00:00:00.000",
+            "title": "Thanks",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/grace-chapel/one-word-prayers/thanks.mp4",
+            "church": {
+                "id": "grace-chapel",
+                "name": "Grace Chapel",
+                "denomination": "Independent"
+            },
+            "series": {
+                "id": "grace-chapel_one_word_prayers",
+                "title": "One Word Prayers",
+                "description": "<p><em>When it comes to prayer, it's easy to think longer is better.</em> We measure the value of prayer by the time we take to express the thoughts in our mind, the feelings on our heart. It's easy to measure prayer in quantity, not quality.</p><p>But what about the times we use just one word? An outburst of joy, an exhale of relief, a snap of frustration, a simple utterance of sheer wonder... are those prayers too?</p><p>Join us on Sundays this summer for our One Word Prayers teaching series, as we gain a deeper understanding of prayer in our everyday lives. Because not all prayers start with, 'Dear Heavenly Father…'</p>",
+                "imageUri": "http://images.acswebnetworks.com/1/2320/OneWordPrayersserieslogo1640.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Dave",
+                    "familyName": "Ripper",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Grace Chapel",
+                        "role": "Pastor of Young Adults Ministry"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_want-my-life-back_1",
+            "date": "2013-03-31T00:00:00.000",
+            "title": "Reclaimed",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/with-god-want-life-back/reclaimed.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_want-my-life-back",
+                "title": "With God: I Want My Life Back",
+                "description": "<p>John starts off a new sub series this Easter called, \"I Want My Life Back\" looking at how we can reclaim our lives again through the hope of the resurrection.</p>",
+                "imageUri": "http://alexgarman14.files.wordpress.com/2011/11/let-god.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "John",
+                    "familyName": "Ortberg",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_want-my-life-back_2",
+            "date": "2013-04-07T00:00:00.000",
+            "title": "Stop Being a Christian",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/with-god-want-life-back/stop-being-christian.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_want-my-life-back",
+                "title": "With God: I Want My Life Back",
+                "description": "<p>John starts off a new sub series this Easter called, \"I Want My Life Back\" looking at how we can reclaim our lives again through the hope of the resurrection.</p>",
+                "imageUri": "http://alexgarman14.files.wordpress.com/2011/11/let-god.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "Scott",
+                    "familyName": "Scruggs",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Young Adults Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_want-my-life-back_3",
+            "date": "2013-04-14T00:00:00.000",
+            "title": "Reclaim Your Marriage",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/with-god-want-life-back/reclaim-your-marriage.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_want-my-life-back",
+                "title": "With God: I Want My Life Back",
+                "description": "<p>John starts off a new sub series this Easter called, \"I Want My Life Back\" looking at how we can reclaim our lives again through the hope of the resurrection.</p>",
+                "imageUri": "http://alexgarman14.files.wordpress.com/2011/11/let-god.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "John",
+                    "familyName": "Ortberg",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_want-my-life-back_4",
+            "date": "2013-04-21T00:00:00.000",
+            "title": "It's About Joy, Stupid",
+            "description": "",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/with-god-want-life-back/it-is-about-joy-stupid.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_want-my-life-back",
+                "title": "With God: I Want My Life Back",
+                "description": "<p>John starts off a new sub series this Easter called, \"I Want My Life Back\" looking at how we can reclaim our lives again through the hope of the resurrection.</p>",
+                "imageUri": "http://alexgarman14.files.wordpress.com/2011/11/let-god.jpg"
+            },
+            "speakers": [
+                {
+                    "givenName": "John",
+                    "familyName": "Ortberg",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_search-for-happy_1",
+            "date": "2013-09-07T00:00:00.000",
+            "title": "What's Better Than the Happy Life?",
+            "description": "Our senior pastor John Ortberg kicked off a new series, The Search for Happy. Everyone is looking for \"Happy,\" but what is it we're really looking for, and how do we find it?",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/search-for-happy/better-than-happy.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_search-for-happy",
+                "title": "Search For Happy",
+                "description": "<p>Life is so constructed that the event does not, cannot, will not, match the expectation. - Charlotte Bronte</p><p>Everyone is searching for happiness. But what does it look like and how do we know when we've found it?</p><p><em>Join us for this series as we look at the book of Philippians and journey together on the search for happy..</em></p>",
+                "imageUri": "http://mppc.org/sites/default/files/search-for-happy_WEBBANNER1920x350.png"
+            },
+            "speakers": [
+                {
+                    "givenName": "John",
+                    "familyName": "Ortberg",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_search-for-happy_2",
+            "date": "2013-09-14T00:00:00.000",
+            "title": "Four Ways to Make Your Life Miserable",
+            "description": "Last weekend, our senior pastor John Ortberg continues the series, \"The Search for Happy,\" with a message on how we can be joyful no matter what our circumstances are like because joy is not a feeling of happiness based on what happens but because it is the only rational response to the resurrection of the Redeemer.",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/search-for-happy/miserable-life.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_search-for-happy",
+                "title": "Search For Happy",
+                "description": "<p>Life is so constructed that the event does not, cannot, will not, match the expectation. - Charlotte Bronte</p><p>Everyone is searching for happiness. But what does it look like and how do we know when we've found it?</p><p><em>Join us for this series as we look at the book of Philippians and journey together on the search for happy..</em></p>",
+                "imageUri": "http://mppc.org/sites/default/files/search-for-happy_WEBBANNER1920x350.png"
+            },
+            "speakers": [
+                {
+                    "givenName": "John",
+                    "familyName": "Ortberg",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "menlo-park-pres_search-for-happy_3",
+            "date": "2013-09-21T00:00:00.000",
+            "title": "The Shocking Secret Happy People Learn",
+            "description": "Our Senior Pastor John Ortberg continues the series, \"The Search for Happy,\" with a message on the common misunderstanding that we'd find joy in achieving status and at the top of the social ladder but that it's found as we descend with Christ to the bottom at the Cross.",
+            "videoUri": "http://storage.googleapis.com/sermonstreams-assets/mppc/search-for-happy/happy-people-secret.mp4",
+            "church": {
+                "id": "menlo-park-pres",
+                "name": "Menlo Park Presbyterian Church",
+                "denomination": "ECO"
+            },
+            "series": {
+                "id": "menlo-park-pres_search-for-happy",
+                "title": "Search For Happy",
+                "description": "<p>Life is so constructed that the event does not, cannot, will not, match the expectation. - Charlotte Bronte</p><p>Everyone is searching for happiness. But what does it look like and how do we know when we've found it?</p><p><em>Join us for this series as we look at the book of Philippians and journey together on the search for happy..</em></p>",
+                "imageUri": "http://mppc.org/sites/default/files/search-for-happy_WEBBANNER1920x350.png"
+            },
+            "speakers": [
+                {
+                    "givenName": "John",
+                    "familyName": "Ortberg",
+                    "honorificPrefix": "Pastor",
+                    "honorificSuffix": "",
+                    "affiliation": {
+                        "name": "Menlo Park Presbyterian Church",
+                        "role": "Senior Pastor"
+                    }
+                }
+            ]
+        }
+    ]
+}

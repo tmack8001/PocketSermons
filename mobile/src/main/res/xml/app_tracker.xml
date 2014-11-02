@@ -1,0 +1,18 @@
+<resource>
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic Activity Measurement -->
+    <bool name="ga_autoActivityTracking">true</bool>
+    <!-- Report uncaught exceptions -->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <!-- The screen names that will appear in reports -->
+    <screenName name="com.tmack.sermonstream.browser.SermonBrowserActivity">
+        TheMount SermonBrowserView
+    </screenName>
+    <screenName name="com.tmack.sermonstream.mediaPlayer.SermonVideoActivity">
+        TheMount SermonVideoView
+    </screenName>
+
+    <string name="ga_trackingId">UA-55404743-1</string>
+</resource>

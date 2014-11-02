@@ -1,0 +1,56 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="TypographyDashes">
+
+    <string name="app_id">E500BED4</string>
+    <string name="app_name">The Mount</string>
+    <string name="cast_app_name">SermonCastPlayer</string>
+    <string name="about_app">About The Mount Player</string>
+    <string name="version">The Mount: %1$s, CCL: %2$s</string>
+
+    <string name="media_route_menu_title">Play on&#8230;</string>
+    <string name="list_of_sermons">Select a Sermon</string>
+    <string name="no_sermon_found">No sermon was found</string>
+
+    <string name="ok">OK</string>
+
+    <string name="title_activity_video_view">VideoView</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Error messages -->
+    <string name="video_error_media_load_timeout">Media loading timed out</string>
+    <string name="video_error_server_unaccessible">Media server was not reachable</string>
+    <string name="video_error_unknown_error">Failed to load video</string>
+    <string name="connection_temp_lost">Connection to the cast device is temporarily lost</string>
+    <string name="connection_recovered">Connection to the cast device is recovered</string>
+    <string name="connection_lost_retry">Connection to the cast device has been temporarily lost. Application is trying to recover connection, please try again later</string>
+    <string name="connection_lost">No connection to the cast device exist</string>
+    <string name="failed_to_perform_action">Sorry, ran into issues performing the task you wanted</string>
+    <string name="oops">Oops</string>
+
+    <!-- Transitions -->
+    <string name="transition_image_hero">transition_image_hero</string>
+
+    <!-- Preferences -->
+    <string name="prefs_header_application">Application Behavior</string>
+    <string name="prefs_header_application_summary">Control how the application behaves on the TV</string>
+    <string name="prefs_termination_policy_default">0</string>
+    <string name="prefs_termination_policy_dialog_title">When Disconnecting</string>
+    <!--<string name="prefs_volume_title">Volume Assignment</string>-->
+    <!--<string name="prefs_volume_title_summary">Controls %1$s</string>-->
+    <!--<string name="prefs_volume_dialog_title">Volume Assignment</string>-->
+    <!--<string name="prefs_volume_default">device</string>-->
+    <string name="title_activity_test">TestActivity</string>
+
+    <!-- ShowCaseView -->
+    <string name="touch_to_cast">Touch to cast videos to your TV</string>
+
+    <!-- GoogleAnalytics Views -->
+    <string name="ga_property_id">UA-55404743-1</string>
+    <string name="ga_browser_item_view">TheMount SermonBrowserView</string>
+    <string name="ga_sermon_video_view">TheMount SermonVideoView</string>
+
+    <string name="ga_clicks_category">Clicks</string>
+    <string name="ga_button_action">Button</string>
+    <string name="ga_play_pause">Play/Pause</string>
+    <string name="ga_chromecast">Chromecast</string>
+</resources>
