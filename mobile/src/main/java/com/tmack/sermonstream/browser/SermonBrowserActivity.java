@@ -1,6 +1,5 @@
 package com.tmack.sermonstream.browser;
 
-import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -9,10 +8,10 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.media.MediaRouter;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
@@ -26,7 +25,6 @@ import com.google.sample.castcompanionlibrary.widgets.MiniController;
 import com.tmack.sermonstream.R;
 import com.tmack.sermonstream.TheMountApplication;
 import com.tmack.sermonstream.settings.CastPreference;
-import com.tmack.sermonstream.utils.TransitionAdapter;
 
 
 /**
@@ -40,6 +38,8 @@ import com.tmack.sermonstream.utils.TransitionAdapter;
 public class SermonBrowserActivity extends ActionBarActivity {
 
     private static final String TAG = "SermonBrowseActivity";
+
+    private Toolbar mToolbar;
 
     private VideoCastManager mCastManager;
     private IVideoCastConsumer mCastConsumer;
@@ -61,7 +61,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
         mCastManager = TheMountApplication.getVideoCastManager(getApplicationContext());
         mTracker = TheMountApplication.getTracker(TheMountApplication.TrackerName.APP_TRACKER, getApplicationContext());
 
-        setupActionBar();
+        setupToolbar();
         setupMiniController();
         setupCastListener();
 
@@ -172,10 +172,13 @@ public class SermonBrowserActivity extends ActionBarActivity {
         super.onDestroy();
     }
 
-    private void setupActionBar() {
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        // TODO: setup action bar icon logo
-        //getSupportActionBar().setIcon(R.drawable.actionbar_logo_sermonstream);
+    private void setupToolbar() {
+        // Configure the Toolbar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+        }
+
         getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 

@@ -16,9 +16,6 @@
 
     <color name="default_metadata_background">#f2f2f2</color>
 
-    <!-- Action Bar -->
-    <color name="actionbar_background">@color/primary_dark</color>
-
     <!-- Text Colors -->
     <color name="primary_text_white">#ddffffff</color>
     <color name="secondary_text_white">#8affffff</color>

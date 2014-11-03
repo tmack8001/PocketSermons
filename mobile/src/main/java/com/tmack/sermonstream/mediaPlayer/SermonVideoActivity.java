@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,6 +13,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -63,6 +64,7 @@ public class SermonVideoActivity extends ActionBarActivity {
     private VideoView mVideoView;
     private ImageView mCoverArt;
 
+    private Toolbar mToolbar;
     private View mControllers;
     private TextView mStartText;
     private TextView mEndText;
@@ -117,7 +119,7 @@ public class SermonVideoActivity extends ActionBarActivity {
         // setup ChromeCast Manager
         mCastManager = TheMountApplication.getVideoCastManager(getApplicationContext());
         mTracker = TheMountApplication.getTracker(TheMountApplication.TrackerName.APP_TRACKER, getApplicationContext());
-        setupActionBar();
+        setupToolbar();
         setupControlsCallbacks();
         setupMiniController();
         setupCastListener();
@@ -717,8 +719,7 @@ public class SermonVideoActivity extends ActionBarActivity {
             MediaMetadata mediaMetadata = mSelectedMedia.getMetadata();
             mTitleView.setText(mediaMetadata.getString(MediaMetadata.KEY_TITLE));
             mAuthorView.setText(mediaMetadata.getString(MediaMetadata.KEY_STUDIO));
-            mDescriptionView.setText(mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE));
-
+            mDescriptionView.setText(Html.fromHtml(mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE)));
 
             mMetadataView.setVisibility(View.VISIBLE);
             mTitleView.setVisibility(View.VISIBLE);
@@ -756,23 +757,24 @@ public class SermonVideoActivity extends ActionBarActivity {
         return true;
     }
 
-    private void setupActionBar() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayUseLogoEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        // TODO: animate to fade in as user scrolls (if ever implemented ScrollView on this screen)
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            final ColorDrawable actionBarBackgroundDrawable = new ColorDrawable(getResources().getColor(R.color.casting_media_control_bg));
-            actionBarBackgroundDrawable.setAlpha(0);
-            getSupportActionBar().setBackgroundDrawable(actionBarBackgroundDrawable);
-        } else {
-            getSupportActionBar().setBackgroundDrawable(
-                    getResources().getDrawable(R.drawable.ab_transparent_overlay));
+    private void setupToolbar() {
+        // Configure the Toolbar
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
         }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // TODO: animate to fade in/out as user scrolls (if ever implemented ScrollView on this screen)
+
+        // Handle Back Navigation
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SermonVideoActivity.this.onBackPressed();
+            }
+        });
     }
 
     private void setupMiniController() {
