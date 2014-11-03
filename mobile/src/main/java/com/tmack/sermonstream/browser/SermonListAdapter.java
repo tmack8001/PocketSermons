@@ -1,6 +1,7 @@
 package com.tmack.sermonstream.browser;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class SermonListAdapter extends ArrayAdapter<MediaInfo> {
                     .fit().into(holder.imageView);
         }
         holder.titleView.setText(mediaMetadata.getString(MediaMetadata.KEY_TITLE));
-        holder.descriptionView.setText(mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE));
+        holder.descriptionView.setText(Html.fromHtml(mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE)));
 
         return convertView;
     }
