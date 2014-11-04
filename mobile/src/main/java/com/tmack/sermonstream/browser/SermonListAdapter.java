@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * An {@link ArrayAdapter} to populate the list of sermons.
  */
+// TODO: change to RecyclerView
 public class SermonListAdapter extends ArrayAdapter<MediaInfo> {
 
     private final Context mContext;
