@@ -100,14 +100,14 @@ public class SermonVideoActivity extends ActionBarActivity {
      */
     public static enum PlaybackLocation {
         LOCAL,
-        REMOTE;
+        REMOTE
     }
 
     /*
      * List of various states that we can be in
      */
     public static enum PlaybackState {
-        PLAYING, PAUSED, BUFFERING, IDLE;
+        PLAYING, PAUSED, BUFFERING, IDLE
     }
 
     @Override
@@ -168,15 +168,16 @@ public class SermonVideoActivity extends ActionBarActivity {
     }
 
     private void applyPalette(Palette palette) {
-        View metaData = findViewById(R.id.metadataView);
-
         Palette.Swatch vibrant = palette.getVibrantSwatch();
+
+        // set status bar color to a muted grey
+        getWindow().setStatusBarColor(getResources().getColor(R.color.material_blue_grey_800));
         if (null != vibrant) {
-            metaData.setBackgroundColor(palette.getVibrantSwatch().getRgb());
+            mMetadataView.setBackgroundColor(vibrant.getRgb());
             mTitleView.setTextColor(vibrant.getTitleTextColor());
             mAuthorView.setTextColor(vibrant.getBodyTextColor());
         } else {
-            metaData.setBackgroundColor(getResources().getColor(R.color.default_metadata_background));
+            mMetadataView.setBackgroundColor(getResources().getColor(R.color.default_metadata_background));
             mTitleView.setTextColor(getResources().getColor(R.color.primary_text_black));
             mAuthorView.setTextColor(getResources().getColor(R.color.secondary_text_black));
         }
@@ -541,7 +542,6 @@ public class SermonVideoActivity extends ActionBarActivity {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    ;
                     if (mLocation == PlaybackLocation.LOCAL) {
                         int currentPos = mVideoView.getCurrentPosition();
                         updateSeekbar(currentPos, mDuration);
