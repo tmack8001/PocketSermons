@@ -30,4 +30,4 @@ local.properties
 
 # Build output directies
 /build
-*/build#built application files
+*/build #built application files
