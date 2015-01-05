@@ -9,8 +9,8 @@ android {
             storePassword 'androiddev'
         }
     }
-    compileSdkVersion 21 // 20
-    buildToolsVersion "21.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
     defaultConfig {
         applicationId "com.tmack.sermonstream"
         minSdkVersion 21
