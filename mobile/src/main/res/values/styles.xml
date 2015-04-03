@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme.SermonStream" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.PocketSermons" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <!-- Main Theme colors -->
         <!--   your app's branding color (for the app bar) -->
         <item name="colorPrimary">@color/primary</item>
@@ -25,13 +25,13 @@
     </style>
 
     <!-- Overlay Theme used for entering via ChromeCast Notification Controller. -->
-    <style name="Theme.SermonStreamOverlay" parent="@style/Theme.SermonStream">
+    <style name="Theme.PocketSermonsOverlay" parent="@style/Theme.PocketSermons">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
 
     <!-- TODO: check where this is used -->
-    <style name="Theme.Transparent.SermonStreamOverlay" parent="@style/Widget.AppCompat.ActionBar">
+    <style name="Theme.Transparent.PocketSermonsOverlay" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@drawable/ab_solid_democast</item>
         <item name="android:titleTextStyle">@style/WhiteText</item>
     </style>

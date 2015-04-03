@@ -2,14 +2,14 @@
     tools:ignore="TypographyDashes">
 
     <string name="app_id">E500BED4</string>
-    <string name="app_name">The Mount</string>
-    <string name="cast_app_name">SermonCastPlayer</string>
-    <string name="about_app">About The Mount Player</string>
-    <string name="version">The Mount: %1$s, CCL: %2$s</string>
+    <string name="app_name">Pocket Sermons</string>
+    <string name="cast_app_name">PocketSermonsCastPlayer</string>
+    <string name="about_app">About Pocket Sermons</string>
+    <string name="version">Pocket Sermons: %1$s, CCL: %2$s</string>
 
     <string name="media_route_menu_title">Play on&#8230;</string>
     <string name="list_of_sermons">Select a Sermon</string>
-    <string name="no_sermon_found">No sermon was found</string>
+    <string name="no_sermon_found">No sermons was found</string>
 
     <string name="ok">OK</string>
 
@@ -46,8 +46,8 @@
 
     <!-- GoogleAnalytics Views -->
     <string name="ga_property_id">UA-55404743-1</string>
-    <string name="ga_browser_item_view">TheMount SermonBrowserView</string>
-    <string name="ga_sermon_video_view">TheMount SermonVideoView</string>
+    <string name="ga_browser_item_view">PocketSermons SermonBrowserView</string>
+    <string name="ga_sermon_video_view">PocketSermons SermonVideoView</string>
 
     <string name="ga_clicks_category">Clicks</string>
     <string name="ga_button_action">Button</string>

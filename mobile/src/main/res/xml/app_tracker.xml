@@ -7,10 +7,10 @@
     <bool name="ga_reportUncaughtExceptions">true</bool>
 
     <!-- The screen names that will appear in reports -->
-    <screenName name="com.tmack.sermonstream.browser.SermonBrowserActivity">
+    <screenName name="com.tmack.pocketsermons.browser.SermonBrowserActivity">
         TheMount SermonBrowserView
     </screenName>
-    <screenName name="com.tmack.sermonstream.mediaPlayer.SermonVideoActivity">
+    <screenName name="com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity">
         TheMount SermonVideoView
     </screenName>
 

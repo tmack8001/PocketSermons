@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_marginBottom="-5dp"
-        class="com.tmack.sermonstream.browser.SermonBrowserListFragment" />
+        class="com.tmack.pocketsermons.browser.SermonBrowserListFragment" />
 
     <com.google.sample.castcompanionlibrary.widgets.MiniController
         android:id="@+id/miniController1"
