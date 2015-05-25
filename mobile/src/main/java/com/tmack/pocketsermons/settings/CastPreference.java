@@ -10,8 +10,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.utils.Utils;
 
 /**

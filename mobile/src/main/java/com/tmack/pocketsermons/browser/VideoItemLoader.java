@@ -5,6 +5,8 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.google.android.gms.cast.MediaInfo;
+import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.data.VideoProvider;
 
 import java.util.List;
 
@@ -16,11 +18,8 @@ public class VideoItemLoader extends AsyncTaskLoader<List<MediaInfo>> {
 
     private static final String TAG = "VideoItemLoader";
 
-    private String mUrl;
-
-    public VideoItemLoader(Context context, String url) {
+    public VideoItemLoader(Context context) {
         super(context);
-        this.mUrl = url;
     }
 
     /**
@@ -29,7 +28,8 @@ public class VideoItemLoader extends AsyncTaskLoader<List<MediaInfo>> {
     @Override
     public List<MediaInfo> loadInBackground() {
         try {
-            return VideoProvider.buildMedia(mUrl);
+            VideoProvider.setContext(getContext());
+            return VideoProvider.retrieveMedia(PocketSermonsApplication.getInstance().getRequestQueue());
         } catch (Exception e) {
             Log.e(TAG, "Failed to fetch media data", e);
             return null;

@@ -3,7 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="series_logo_size">64dp</dimen>
+    <dimen name="series_logo_width">114dp</dimen>
+    <dimen name="series_logo_height">64dp</dimen>
 
     <!-- ShowCaseView -->
     <dimen name="showcase_radius">47dp</dimen>

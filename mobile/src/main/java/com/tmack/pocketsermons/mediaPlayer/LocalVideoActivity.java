@@ -39,8 +39,8 @@ import com.google.sample.castcompanionlibrary.cast.callbacks.VideoCastConsumerIm
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.settings.CastPreference;
 import com.tmack.pocketsermons.utils.Utils;
 
@@ -388,7 +388,7 @@ public class LocalVideoActivity extends ActionBarActivity {
 
     private void setCoverArtStatus(String url) {
         if (null != url) {
-           if (loadtarget == null) loadtarget = new Target() {
+            if (loadtarget == null) loadtarget = new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                     // do something with the Bitmap

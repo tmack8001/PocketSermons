@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tmack.pocketsermons" >
+    package="com.tmack.pocketsermons">
 
     <!-- required for streaming of network content -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +11,7 @@
 
     <uses-feature
         android:name="android.hardware.wifi"
-        android:required="true"/>
+        android:required="true" />
 
     <application
         android:name=".PocketSermonsApplication"
@@ -75,8 +75,7 @@
         </activity>
 
         <!-- Video Intent Receiver -->
-        <receiver
-            android:name="com.google.sample.castcompanionlibrary.remotecontrol.VideoIntentReceiver">
+        <receiver android:name="com.google.sample.castcompanionlibrary.remotecontrol.VideoIntentReceiver">
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
                 <action android:name="android.intent.action.MEDIA_BUTTON" />

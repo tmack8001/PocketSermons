@@ -25,8 +25,8 @@ import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
 import com.google.sample.castcompanionlibrary.cast.callbacks.IVideoCastConsumer;
 import com.google.sample.castcompanionlibrary.cast.callbacks.VideoCastConsumerImpl;
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
-import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 import com.tmack.pocketsermons.settings.CastPreference;
 

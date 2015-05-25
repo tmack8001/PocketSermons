@@ -10,27 +10,26 @@ android {
         }
     }
 
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
 
     defaultConfig {
-        applicationId "com.tmack.pocketsermons"
+        applicationId "com.tmack.sermonstream"
         minSdkVersion 21
-        targetSdkVersion 21
-        versionCode 2
-        versionName "0.1.1"
+        targetSdkVersion 22
+        versionCode 4
+        versionName "0.1.2"
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.config
-            versionNameSuffix '.butter-finger'
         }
 
         debug {
             minifyEnabled
             signingConfig signingConfigs.config
-            versionNameSuffix '.butter-finger.debug-build-' + getDate()
+            versionNameSuffix '.debug-build-' + new Date().format('yyyyMMdd')
         }
     }
 
@@ -62,14 +61,9 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     // include both of Google's libraries GSON and Volley for API integration
     compile 'com.google.code.gson:gson:2.3'
-    compile files('libs/volley.jar')
+    compile files('../libs/volley.jar')
     // include ShowcaseView
     compile 'com.github.amlcurran.showcaseview:library:5.0.0'
     compile project(':CastCompanionLibrary')
-}
-
-def getDate() {
-    def date = new Date()
-    def formattedDate = date.format('yyyyMMdd')
-    return formattedDate
+    compile project(':api')
 }

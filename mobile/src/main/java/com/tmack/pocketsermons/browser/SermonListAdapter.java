@@ -26,7 +26,8 @@ public class SermonListAdapter extends ArrayAdapter<MediaInfo> {
 
     /**
      * Constructor to create an {@link ArrayAdapter}
-     * @param context   the context of the adapter
+     *
+     * @param context the context of the adapter
      */
     public SermonListAdapter(Context context) {
         super(context, 0);
@@ -58,11 +59,12 @@ public class SermonListAdapter extends ArrayAdapter<MediaInfo> {
         if (!mediaMetadata.getImages().isEmpty()) {
             Picasso.with(mContext).load(mediaMetadata.getImages().get(0).getUrl().toString())
                     .placeholder(R.drawable.placeholder)
-                    .resize(holder.imageView.getMaxWidth(), holder.imageView.getMaxHeight())
-                    .into(holder.imageView);
+                    .fit().into(holder.imageView);
         }
         holder.titleView.setText(mediaMetadata.getString(MediaMetadata.KEY_TITLE));
-        holder.descriptionView.setText(Html.fromHtml(mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE)));
+        if (mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE) != null) {
+            holder.descriptionView.setText(Html.fromHtml(mediaMetadata.getString(MediaMetadata.KEY_SUBTITLE)));
+        }
 
         return convertView;
     }

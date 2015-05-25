@@ -4,12 +4,12 @@
     android:paddingBottom="5dp"
     android:paddingLeft="8dp"
     android:paddingRight="16dp"
-    android:paddingTop="5dp" >
+    android:paddingTop="5dp">
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="@dimen/series_logo_size"
-        android:layout_height="@dimen/series_logo_size"
+        android:layout_width="@dimen/series_logo_width"
+        android:layout_height="@dimen/series_logo_height"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/placeholder"
@@ -23,7 +23,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/imageView1"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView1"

@@ -1,28 +1,56 @@
 apply plugin: 'com.android.application'
 
-
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.0"
+    signingConfigs {
+        config {
+            keyAlias 'com.tmack.sermonstream'
+            keyPassword 'androiddev'
+            storeFile file('/Users/tmack/dev/keystore.jks')
+            storePassword 'androiddev'
+        }
+    }
+
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
 
     defaultConfig {
-        applicationId "com.tmack.sermonstream"
+        applicationId "com.tmack.pocketsermons.tvleanback"
         minSdkVersion 21
-        targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 22
+        versionCode 2
+        versionName "0.1.1"
     }
     buildTypes {
         release {
-            minifyEnabled
+            signingConfig signingConfigs.config
         }
+
+        debug {
+            minifyEnabled
+            signingConfig signingConfigs.config
+            versionNameSuffix '.debug-build-' + new Date().format('yyyyMMdd')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        abortOnError true
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:recyclerview-v7:21.0.0'
-    compile 'com.android.support:leanback-v17:21.0.0'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:recyclerview-v7:22.0.0'
+    compile 'com.android.support:leanback-v17:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.github.bumptech.glide:glide:3.4.+'
     compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.android.support:support-v4:22.0.0'
+    compile files('../libs/volley.jar')
+    compile project(':CastCompanionLibrary')
+    compile project(':api')
 }

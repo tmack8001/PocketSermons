@@ -1,8 +1,8 @@
 <resources>
 
     <!--<string-array name="prefs_volume_names">-->
-        <!--<item>HDMI Out</item>-->
-        <!--<item>Media Stream</item>-->
+    <!--<item>HDMI Out</item>-->
+    <!--<item>Media Stream</item>-->
     <!--</string-array>-->
     <string-array name="prefs_termination_policy_names">
         <item>Continue application on TV</item>
@@ -11,8 +11,8 @@
 
     <!-- Do not translate below this line -->
     <!--<string-array name="prefs_volume_values">-->
-        <!--<item>device</item>-->
-        <!--<item>stream</item>-->
+    <!--<item>device</item>-->
+    <!--<item>stream</item>-->
     <!--</string-array>-->
     <string-array name="prefs_termination_policy_values">
         <item>0</item>

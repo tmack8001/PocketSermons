@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.sample.castcompanionlibrary.utils.Utils;
 import com.tmack.pocketsermons.R;
+import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 
 import java.util.List;
@@ -26,9 +27,20 @@ public class SermonBrowserListFragment extends ListFragment implements
         LoaderManager.LoaderCallbacks<List<MediaInfo>> {
 
     private static final String TAG = "SermonBrowserListFragment";
-    private static final String CATALOG_URL =
-            "http://192.168.11.173:3000/api/v1/sermons";
     private SermonListAdapter mAdapter;
+
+    public static SermonBrowserListFragment newInstance() {
+        SermonBrowserListFragment fragment = new SermonBrowserListFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static SermonBrowserListFragment newInstance(Bundle bundle) {
+        SermonBrowserListFragment fragment = new SermonBrowserListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     /*
      * (non-Javadoc)
@@ -52,7 +64,7 @@ public class SermonBrowserListFragment extends ListFragment implements
      */
     @Override
     public Loader<List<MediaInfo>> onCreateLoader(int i, Bundle bundle) {
-        return new VideoItemLoader(getActivity(), CATALOG_URL);
+        return new VideoItemLoader(getActivity());
     }
 
     /*
@@ -102,18 +114,5 @@ public class SermonBrowserListFragment extends ListFragment implements
                 view.findViewById(R.id.imageView1), transitionName);
         // start the new activity
         getActivity().startActivity(intent, activityOptions.toBundle());
-    }
-
-    public static SermonBrowserListFragment newInstance() {
-        SermonBrowserListFragment fragment = new SermonBrowserListFragment();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    public static SermonBrowserListFragment newInstance(Bundle bundle) {
-        SermonBrowserListFragment fragment = new SermonBrowserListFragment();
-        fragment.setArguments(bundle);
-        return fragment;
     }
 }
