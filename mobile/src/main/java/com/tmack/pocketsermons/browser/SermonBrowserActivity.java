@@ -25,8 +25,10 @@ import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
 import com.google.sample.castcompanionlibrary.cast.callbacks.IVideoCastConsumer;
 import com.google.sample.castcompanionlibrary.cast.callbacks.VideoCastConsumerImpl;
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
-import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.PocketSermonsMobileApplication;
+import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.R;
+import com.tmack.pocketsermons.common.utils.Utils;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 import com.tmack.pocketsermons.settings.CastPreference;
 
@@ -62,7 +64,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
 
         // TODO: If exposing deep links into your app, handle intents here.
 
-        mCastManager = PocketSermonsApplication.getCastManager();
+        mCastManager = PocketSermonsMobileApplication.getCastManager();
         mTracker = PocketSermonsApplication.getTracker(PocketSermonsApplication.TrackerName.APP_TRACKER, getApplicationContext());
 
         setupToolbar();
@@ -91,13 +93,13 @@ public class SermonBrowserActivity extends ActionBarActivity {
             @Override
             public void onConnectionSuspended(int cause) {
                 Log.d(TAG, "onConnectionSuspended() was called with cause: " + cause);
-                com.tmack.pocketsermons.utils.Utils.
+                Utils.
                         showToast(SermonBrowserActivity.this, R.string.connection_temp_lost);
             }
 
             @Override
             public void onConnectivityRecovered() {
-                com.tmack.pocketsermons.utils.Utils.
+                Utils.
                         showToast(SermonBrowserActivity.this, R.string.connection_recovered);
             }
 
@@ -163,7 +165,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (mCastManager.onDispatchVolumeKeyEvent(event, PocketSermonsApplication.VOLUME_INCREMENT)) {
+        if (mCastManager.onDispatchVolumeKeyEvent(event, PocketSermonsMobileApplication.VOLUME_INCREMENT)) {
             return true;
         }
         return super.dispatchKeyEvent(event);
@@ -172,7 +174,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume() was called");
-        mCastManager = PocketSermonsApplication.getCastManager();
+        mCastManager = PocketSermonsMobileApplication.getCastManager();
         if (null != mCastManager) {
             mCastManager.addVideoCastConsumer(mCastConsumer);
             mCastManager.incrementUiCounter();

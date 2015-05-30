@@ -35,10 +35,10 @@ import com.google.android.gms.cast.MediaMetadata;
 import com.google.sample.castcompanionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.tmack.pocketsermons.tvleanback.R;
+import com.tmack.pocketsermons.common.model.Sermon;
 import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.PicassoBackgroundManagerTarget;
-import com.tmack.pocketsermons.tvleanback.R;
-import com.tmack.pocketsermons.tvleanback.model.Sermon;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;
 import com.tmack.pocketsermons.tvleanback.presenter.DetailsDescriptionPresenter;
 

@@ -1,4 +1,4 @@
-package com.tmack.pocketsermons.utils;
+package com.tmack.pocketsermons.common.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,12 +9,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.google.sample.castcompanionlibrary.cast.exceptions.CastException;
-import com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionException;
-import com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
-import com.tmack.pocketsermons.R;
-
-import java.io.IOException;
+import com.tmack.pocketsermons.common.R;
 
 /**
  * A collection of utility methods, all static.
@@ -62,44 +57,6 @@ public class Utils {
                 .show();
     }
 
-    /**
-     * A utility method to handle a few types of exceptions that are commonly thrown by the cast
-     * APIs in this library. It has special treatments for
-     * {@link com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException}, {@link com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionException} and shows an
-     * "Oops" dialog conveying certain messages to the user. The following resource IDs can be used
-     * to control the messages that are shown:
-     * <p/>
-     * <ul>
-     * <li><code>R.string.connection_lost_retry</code></li>
-     * <li><code>R.string.connection_lost</code></li>
-     * <li><code>R.string.failed_to_perform_action</code></li>
-     * </ul>
-     *
-     * @param context
-     * @param e
-     */
-    public static void handleException(Context context, Exception e) {
-        int resourceId = 0;
-        if (e instanceof TransientNetworkDisconnectionException) {
-            // temporary loss of connectivity
-            resourceId = R.string.connection_lost_retry;
-
-        } else if (e instanceof NoConnectionException) {
-            // connection gone
-            resourceId = R.string.connection_lost;
-        } else if (e instanceof RuntimeException ||
-                e instanceof IOException ||
-                e instanceof CastException) {
-            // something more serious happened
-            resourceId = R.string.failed_to_perform_action;
-        } else {
-            // well, who knows!
-            resourceId = R.string.failed_to_perform_action;
-        }
-        if (resourceId > 0) {
-            showOopsDialog(context, resourceId);
-        }
-    }
 
     /**
      * Gets the version of the app.
@@ -145,5 +102,41 @@ public class Utils {
                 })
                 .create()
                 .show();
+    }
+
+    /**
+     * Formats time in milliseconds to hh:mm:ss string format.
+     *
+     * @param millis
+     * @return
+     */
+    public static String formatMillis(int millis) {
+        String result = "";
+        int hr = millis / 3600000;
+        millis %= 3600000;
+        int min = millis / 60000;
+        millis %= 60000;
+        int sec = millis / 1000;
+        if (hr > 0) {
+            result += hr + ":";
+        }
+        if (min >= 0) {
+            if (min > 9) {
+                result += min + ":";
+            } else {
+                result += "0" + min + ":";
+            }
+        }
+        if (sec > 9) {
+            result += sec;
+        } else {
+            result += "0" + sec;
+        }
+        return result;
+    }
+
+    public static int dpToPx(int dp, Context ctx) {
+        float density = ctx.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 }

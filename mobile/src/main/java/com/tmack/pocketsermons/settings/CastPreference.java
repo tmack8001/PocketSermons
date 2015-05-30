@@ -10,9 +10,9 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
-import com.tmack.pocketsermons.utils.Utils;
+import com.tmack.pocketsermons.common.utils.Utils;
 
 /**
  * Preferences related to ChromeCast support.
@@ -42,7 +42,7 @@ public class CastPreference extends PreferenceActivity
         addPreferencesFromResource(R.xml.application_preferences);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
-        mCastManager = PocketSermonsApplication.getCastManager();
+        mCastManager = PocketSermonsMobileApplication.getCastManager();
 
         // -- Termination Policy -------------------//
         mTerminationListPreference = (ListPreference) getPreferenceScreen().findPreference(

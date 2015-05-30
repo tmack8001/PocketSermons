@@ -1,34 +1,35 @@
-package com.tmack.pocketsermons.tvleanback.data;
+package com.tmack.pocketsermons.common.data;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.google.android.gms.cast.MediaInfo;
+import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.data.VideoProvider;
-import com.tmack.pocketsermons.tvleanback.PocketSermonsApplication;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author Trevor (drummer8001@gmail.com)
- * @since x.x.x
+ * Async loader for video resources. This will allow loading of a list of
+ * videos in the background so the UI thread doesn't get blocked.
  */
-public class VideoItemLoader extends AsyncTaskLoader<Map<String, List<MediaInfo>>> {
+public class VideoItemListLoader extends AsyncTaskLoader<List<MediaInfo>> {
 
     private static final String TAG = "VideoItemLoader";
 
-    public VideoItemLoader(Context context) {
+    public VideoItemListLoader(Context context) {
         super(context);
     }
 
+    /**
+     * Request to load list of videos in the background.
+     */
     @Override
-    public Map<String, List<MediaInfo>> loadInBackground() {
+    public List<MediaInfo> loadInBackground() {
         try {
             VideoProvider.setContext(getContext());
-            VideoProvider.retrieveMedia(PocketSermonsApplication.getInstance().getRequestQueue());
-            return VideoProvider.getMediaListByChurch();
+            return VideoProvider.retrieveMedia(PocketSermonsApplication.getInstance().getRequestQueue());
         } catch (Exception e) {
             Log.e(TAG, "Failed to fetch media data", e);
             return null;
@@ -49,7 +50,7 @@ public class VideoItemLoader extends AsyncTaskLoader<Map<String, List<MediaInfo>
      */
     @Override
     protected void onStopLoading() {
-        // Attempt to cancel the current load task if possible
+        // Attempt to cancel the current load task if possible.
         cancelLoad();
     }
 }

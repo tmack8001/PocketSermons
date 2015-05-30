@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_id">E500BED4</string>
+    <string name="app_name">Pocket Sermons Common</string>
+    <string name="cast_app_name">PocketSermonsCastPlayer</string>
+    <string name="about_app">About Pocket Sermons</string>
+    <string name="version">Pocket Sermons: %1$s, CCL: %2$s</string>
+
+    <string name="loading">Loading…</string>
+    <string name="list_of_sermons">Select a Sermon</string>
+    <string name="no_sermon_found">No sermons were found</string>
+
+    <string name="ok">OK</string>
+
+    <string name="title_activity_video_view">VideoView</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Error messages -->
+    <string name="video_error_media_load_timeout">Media loading timed out</string>
+    <string name="video_error_server_unaccessible">Media server was not reachable</string>
+    <string name="video_error_unknown_error">Failed to load video</string>
+    <string name="failed_to_perform_action">Sorry, ran into issues performing the task you wanted</string>
+    <string name="oops">Oops</string>
+
+    <!-- GoogleAnalytics Views -->
+    <string name="ga_property_id">UA-55404743-1</string>
+    <string name="ga_browser_item_view">PocketSermons SermonBrowserView</string>
+    <string name="ga_sermon_video_view">PocketSermons SermonVideoView</string>
+
+    <string name="ga_clicks_category">Clicks</string>
+    <string name="ga_button_action">Button</string>
+    <string name="ga_play_pause">Play/Pause</string>
+    <string name="ga_chromecast">Chromecast</string>
+</resources>

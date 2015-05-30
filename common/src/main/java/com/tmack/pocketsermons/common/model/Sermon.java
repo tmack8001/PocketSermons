@@ -1,13 +1,11 @@
-package com.tmack.pocketsermons.tvleanback.model;
+package com.tmack.pocketsermons.common.model;
 
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.UUID;
 
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
 
 import com.google.android.gms.cast.MediaInfo;

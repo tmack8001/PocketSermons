@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.sample.castcompanionlibrary.utils.Utils;
 import com.tmack.pocketsermons.R;
-import com.tmack.pocketsermons.data.VideoProvider;
+import com.tmack.pocketsermons.common.data.VideoItemListLoader;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 
 import java.util.List;
@@ -64,7 +64,7 @@ public class SermonBrowserListFragment extends ListFragment implements
      */
     @Override
     public Loader<List<MediaInfo>> onCreateLoader(int i, Bundle bundle) {
-        return new VideoItemLoader(getActivity());
+        return new VideoItemListLoader(getActivity());
     }
 
     /*

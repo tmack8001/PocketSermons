@@ -39,10 +39,12 @@ import com.google.sample.castcompanionlibrary.cast.callbacks.VideoCastConsumerIm
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
+import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.settings.CastPreference;
-import com.tmack.pocketsermons.utils.Utils;
+import com.tmack.pocketsermons.common.utils.Utils;
+import com.tmack.pocketsermons.utils.CastExceptionUtils;
 
 import org.json.JSONException;
 
@@ -117,7 +119,7 @@ public class LocalVideoActivity extends ActionBarActivity {
         loadViews();
 
         // setup ChromeCast Manager
-        mCastManager = PocketSermonsApplication.getCastManager();
+        mCastManager = PocketSermonsMobileApplication.getCastManager();
         mTracker = PocketSermonsApplication.getTracker(PocketSermonsApplication.TrackerName.APP_TRACKER, getApplicationContext());
         setupToolbar();
         setupControlsCallbacks();
@@ -235,8 +237,7 @@ public class LocalVideoActivity extends ActionBarActivity {
                             loadRemoteMedia(currentPosition, true);
                             finish();
                         } catch (Exception e) {
-                            com.tmack.pocketsermons.utils.Utils
-                                    .handleException(LocalVideoActivity.this, e);
+                            CastExceptionUtils.handleException(LocalVideoActivity.this, e);
                         }
                     } else {
                         updatePlaybackLocation(PlaybackLocation.REMOTE);
@@ -273,13 +274,13 @@ public class LocalVideoActivity extends ActionBarActivity {
 
             @Override
             public void onConnectionSuspended(int cause) {
-                com.tmack.pocketsermons.utils.Utils.showToast(LocalVideoActivity.this,
+                Utils.showToast(LocalVideoActivity.this,
                         R.string.connection_temp_lost);
             }
 
             @Override
             public void onConnectivityRecovered() {
-                com.tmack.pocketsermons.utils.Utils.showToast(LocalVideoActivity.this,
+                Utils.showToast(LocalVideoActivity.this,
                         R.string.connection_recovered);
             }
 
@@ -320,8 +321,7 @@ public class LocalVideoActivity extends ActionBarActivity {
                 try {
                     mCastManager.play(position);
                 } catch (Exception e) {
-                    com.tmack.pocketsermons.utils.Utils.
-                            handleException(LocalVideoActivity.this, e);
+                    CastExceptionUtils.handleException(LocalVideoActivity.this, e);
                 }
                 break;
             default:
@@ -353,8 +353,7 @@ public class LocalVideoActivity extends ActionBarActivity {
                             loadRemoteMedia(0, true);
                             finish();
                         } catch (Exception e) {
-                            com.tmack.pocketsermons.utils.Utils.
-                                    handleException(LocalVideoActivity.this, e);
+                            CastExceptionUtils.handleException(LocalVideoActivity.this, e);
                             return;
                         }
                         break;
@@ -517,7 +516,7 @@ public class LocalVideoActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume was called");
-        mCastManager = PocketSermonsApplication.getCastManager();
+        mCastManager = PocketSermonsMobileApplication.getCastManager();
         mCastManager.addVideoCastConsumer(mCastConsumer);
         mCastManager.incrementUiCounter();
         super.onResume();

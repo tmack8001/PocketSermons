@@ -3,8 +3,7 @@ package com.tmack.pocketsermons.tvleanback.presenter;
 import android.support.v17.leanback.widget.AbstractDetailsDescriptionPresenter;
 
 import com.google.android.gms.cast.MediaInfo;
-import com.google.android.gms.cast.MediaMetadata;
-import com.tmack.pocketsermons.tvleanback.model.Sermon;
+import com.tmack.pocketsermons.common.model.Sermon;
 
 public class DetailsDescriptionPresenter extends AbstractDetailsDescriptionPresenter {
     @Override

@@ -14,7 +14,7 @@ import com.google.android.gms.cast.MediaInfo;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tmack.pocketsermons.tvleanback.R;
-import com.tmack.pocketsermons.tvleanback.model.Sermon;
+import com.tmack.pocketsermons.common.model.Sermon;
 
 import java.net.URI;
 
@@ -24,41 +24,6 @@ public class CardPresenter extends Presenter {
     private static Context mContext;
     private static int CARD_WIDTH = 313;
     private static int CARD_HEIGHT = 176;
-
-    static class ViewHolder extends Presenter.ViewHolder {
-        private Sermon mSermon;
-        private ImageCardView mCardView;
-        private Drawable mDefaultCardImage;
-        private PicassoImageCardViewTarget mImageCardViewTarget;
-
-        public ViewHolder(View view) {
-            super(view);
-            mCardView = (ImageCardView) view;
-            mImageCardViewTarget = new PicassoImageCardViewTarget(mCardView);
-            mDefaultCardImage = mContext.getResources().getDrawable(R.drawable.movie);
-        }
-
-        public void setSermon(Sermon sermon) {
-            mSermon = sermon;
-        }
-
-        public Sermon getSermon() {
-            return mSermon;
-        }
-
-        public ImageCardView getCardView() {
-            return mCardView;
-        }
-
-        protected void updateCardViewImage(URI uri) {
-            Picasso.with(mContext)
-                    .load(uri.toString())
-                    .resize(CARD_WIDTH, CARD_HEIGHT)
-                    .centerCrop()
-                    .error(mDefaultCardImage)
-                    .into(mImageCardViewTarget);
-        }
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
@@ -104,6 +69,41 @@ public class CardPresenter extends Presenter {
     @Override
     public void onViewAttachedToWindow(Presenter.ViewHolder viewHolder) {
         Log.d(TAG, "onViewAttachedToWindow");
+    }
+
+    static class ViewHolder extends Presenter.ViewHolder {
+        private Sermon mSermon;
+        private ImageCardView mCardView;
+        private Drawable mDefaultCardImage;
+        private PicassoImageCardViewTarget mImageCardViewTarget;
+
+        public ViewHolder(View view) {
+            super(view);
+            mCardView = (ImageCardView) view;
+            mImageCardViewTarget = new PicassoImageCardViewTarget(mCardView);
+            mDefaultCardImage = mContext.getResources().getDrawable(R.drawable.movie);
+        }
+
+        public Sermon getSermon() {
+            return mSermon;
+        }
+
+        public void setSermon(Sermon sermon) {
+            mSermon = sermon;
+        }
+
+        public ImageCardView getCardView() {
+            return mCardView;
+        }
+
+        protected void updateCardViewImage(URI uri) {
+            Picasso.with(mContext)
+                    .load(uri.toString())
+                    .resize(CARD_WIDTH, CARD_HEIGHT)
+                    .centerCrop()
+                    .error(mDefaultCardImage)
+                    .into(mImageCardViewTarget);
+        }
     }
 
     public static class PicassoImageCardViewTarget implements Target {

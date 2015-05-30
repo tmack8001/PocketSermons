@@ -34,10 +34,10 @@ import com.google.android.gms.common.images.WebImage;
 import com.google.sample.castcompanionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.tmack.pocketsermons.tvleanback.R;
+import com.tmack.pocketsermons.common.data.VideoItemMapLoader;
 import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.PicassoBackgroundManagerTarget;
-import com.tmack.pocketsermons.tvleanback.R;
-import com.tmack.pocketsermons.tvleanback.data.VideoItemLoader;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;
 
 import java.util.List;
@@ -136,7 +136,7 @@ public class MainFragment extends BrowseFragment implements
     @Override
     public Loader<Map<String, List<MediaInfo>>> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "VideoItemLoader created");
-        return new VideoItemLoader(getActivity());
+        return new VideoItemMapLoader(getActivity());
     }
 
     /*
@@ -289,9 +289,9 @@ public class MainFragment extends BrowseFragment implements
                 if (((String) item).contains(getString(R.string.grid_view))) {
                     Intent intent = new Intent(getActivity(), VerticalGridActivity.class);
                     startActivity(intent);
-                //} else if (((String) item).contains(getString(R.string.error_fragment))) {
-                //    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
-                //    startActivity(intent);
+                    //} else if (((String) item).contains(getString(R.string.error_fragment))) {
+                    //    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
+                    //    startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), ((String) item), Toast.LENGTH_SHORT).show();
                 }

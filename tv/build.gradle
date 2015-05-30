@@ -14,12 +14,13 @@ android {
     buildToolsVersion "22.0.0"
 
     defaultConfig {
-        applicationId "com.tmack.pocketsermons.tvleanback"
+        applicationId "com.tmack.sermonstream"
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 2
-        versionName "0.1.1"
+        versionCode 6
+        versionName "0.2.0atv"
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.config
@@ -28,7 +29,7 @@ android {
         debug {
             minifyEnabled
             signingConfig signingConfigs.config
-            versionNameSuffix '.debug-build-' + new Date().format('yyyyMMdd')
+            versionNameSuffix '.tv.debug-build-' + new Date().format('yyyyMMdd')
         }
     }
 
@@ -53,4 +54,5 @@ dependencies {
     compile files('../libs/volley.jar')
     compile project(':CastCompanionLibrary')
     compile project(':api')
+    compile project(':common')
 }

@@ -1,35 +1,34 @@
-package com.tmack.pocketsermons.browser;
+package com.tmack.pocketsermons.common.data;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.google.android.gms.cast.MediaInfo;
-import com.tmack.pocketsermons.PocketSermonsApplication;
+import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.data.VideoProvider;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Async loader for video resources. This will allow loading of a list of
- * videos in the background so the UI thread doesn't get blocked.
+ * @author Trevor (drummer8001@gmail.com)
+ * @since x.x.x
  */
-public class VideoItemLoader extends AsyncTaskLoader<List<MediaInfo>> {
+public class VideoItemMapLoader extends AsyncTaskLoader<Map<String, List<MediaInfo>>> {
 
     private static final String TAG = "VideoItemLoader";
 
-    public VideoItemLoader(Context context) {
+    public VideoItemMapLoader(Context context) {
         super(context);
     }
 
-    /**
-     * Request to load list of videos in the background.
-     */
     @Override
-    public List<MediaInfo> loadInBackground() {
+    public Map<String, List<MediaInfo>> loadInBackground() {
         try {
             VideoProvider.setContext(getContext());
-            return VideoProvider.retrieveMedia(PocketSermonsApplication.getInstance().getRequestQueue());
+            VideoProvider.retrieveMedia(PocketSermonsApplication.getInstance().getRequestQueue());
+            return VideoProvider.getMediaListByChurch();
         } catch (Exception e) {
             Log.e(TAG, "Failed to fetch media data", e);
             return null;
@@ -50,7 +49,7 @@ public class VideoItemLoader extends AsyncTaskLoader<List<MediaInfo>> {
      */
     @Override
     protected void onStopLoading() {
-        // Attempt to cancel the current load task if possible.
+        // Attempt to cancel the current load task if possible
         cancelLoad();
     }
 }

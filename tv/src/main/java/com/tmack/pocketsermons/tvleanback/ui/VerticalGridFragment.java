@@ -14,9 +14,9 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 
 import com.google.android.gms.cast.MediaInfo;
-import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.R;
-import com.tmack.pocketsermons.tvleanback.model.Sermon;
+import com.tmack.pocketsermons.common.model.Sermon;
+import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;
 
 import java.util.Collections;

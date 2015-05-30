@@ -1,3 +1,2 @@
-include ':mobile', ':tv', ':api'
-include ':', 'CastCompanionLibrary'
-project(':CastCompanionLibrary').projectDir = new File('../CastCompanionLibrary')
+include ':mobile', ':tv', ':api', ':common'
+include ':CastCompanionLibrary'

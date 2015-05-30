@@ -1,4 +1,4 @@
-package com.tmack.pocketsermons;
+package com.tmack.pocketsermons.common;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,25 +12,22 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.google.sample.castcompanionlibrary.utils.Utils;
-import com.tmack.pocketsermons.settings.CastPreference;
+import com.tmack.pocketsermons.common.utils.Utils;
 
 import java.util.HashMap;
 
 /**
- * The {@link Application} for this application.
+ * @author Trevor (drummer8001@gmail.com)
+ * @since x.x.x
  */
 public class PocketSermonsApplication extends Application {
     public static final String TAG = "PocketSermons";
-    public static final double VOLUME_INCREMENT = 0.05;
 
-    private static String APPLICATION_ID;
-    private static String PROPERTY_ID;
+    protected static String APPLICATION_ID;
+    protected static String PROPERTY_ID;
 
-    private static RequestQueue mRequestQueue = null;
-
-    private static PocketSermonsApplication sInstance = null;
-    private static VideoCastManager sCastManager = null;
+    private static RequestQueue sRequestQueue = null;
+    protected static PocketSermonsApplication sInstance = null;
 
     /**
      * Enum used to identify the tracker that needs to be used for tracking.
@@ -53,38 +50,12 @@ public class PocketSermonsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         APPLICATION_ID = getString(R.string.app_id);
-        PROPERTY_ID = getString(R.string.ga_property_id);
-
-        initializeCastManager();
-        Utils.saveFloatToPreference(getApplicationContext(),
-                VideoCastManager.PREFS_KEY_VOLUME_INCREMENT, (float) VOLUME_INCREMENT);
 
         sInstance = this;
     }
 
     public static synchronized PocketSermonsApplication getInstance() {
         return sInstance;
-    }
-
-    private void initializeCastManager() {
-        sCastManager = VideoCastManager.initialize(getApplicationContext(), APPLICATION_ID, null, null);
-        sCastManager.enableFeatures(
-                VideoCastManager.FEATURE_NOTIFICATION |
-                        VideoCastManager.FEATURE_LOCKSCREEN |
-                        VideoCastManager.FEATURE_WIFI_RECONNECT |
-                        VideoCastManager.FEATURE_CAPTIONS_PREFERENCE |
-                        VideoCastManager.FEATURE_DEBUGGING);
-        String destroyOnExitStr = Utils.getStringFromPreference(getApplicationContext(),
-                CastPreference.TERMINATION_POLICY_KEY);
-        sCastManager.setStopOnDisconnect(null != destroyOnExitStr
-                && CastPreference.STOP_ON_DISCONNECT.equals(destroyOnExitStr));
-    }
-
-    public static VideoCastManager getCastManager() {
-        if (sCastManager == null) {
-            throw new IllegalStateException("Application has not been started");
-        }
-        return sCastManager;
     }
 
     public static synchronized Tracker getTracker(TrackerName trackerId, Context ctx) {
@@ -105,11 +76,11 @@ public class PocketSermonsApplication extends Application {
 
     public RequestQueue getRequestQueue() {
         // lazy initialize the request queue
-        if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        if (sRequestQueue == null) {
+            sRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
 
-        return mRequestQueue;
+        return sRequestQueue;
     }
 
     public <T> void addToRequestQueue(Request<T> request) {
@@ -124,8 +95,8 @@ public class PocketSermonsApplication extends Application {
     }
 
     public void cancelPendingRequests(Object tag) {
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
+        if (sRequestQueue != null) {
+            sRequestQueue.cancelAll(tag);
         }
     }
 }

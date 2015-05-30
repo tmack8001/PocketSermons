@@ -15,14 +15,8 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.google.android.gms.cast.MediaInfo;
-import com.google.android.gms.common.images.WebImage;
-import com.squareup.picasso.Picasso;
 import com.tmack.pocketsermons.tvleanback.R;
-import com.tmack.pocketsermons.tvleanback.model.Sermon;
-
-import java.io.IOException;
-import java.util.List;
+import com.tmack.pocketsermons.common.model.Sermon;
 
 /**
  * PlaybackOverlayActivity for video playback that loads PlaybackOverlayFragment
