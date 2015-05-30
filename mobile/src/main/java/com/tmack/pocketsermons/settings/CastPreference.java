@@ -9,7 +9,7 @@ import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
-import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
+import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.common.utils.Utils;
@@ -24,31 +24,30 @@ public class CastPreference extends PreferenceActivity
 
     // First Time User Overlay Shown State
     public static final String FTU_SHOWN_KEY = "ftu_shown";
+    public static final String VOLUME_SELECTION_KEY = "volume_target";
 
-    // Termination on Disconnect Policy
-    public static final String TERMINATION_POLICY_KEY = "termination_policy";
-    public static final String STOP_ON_DISCONNECT = "1";
-    public static final String CONTINUE_ON_DISCONNECT = "0";
-
+    private ListPreference mVolumeListPreference;
     private SharedPreferences mPrefs;
     private VideoCastManager mCastManager;
     boolean mStopOnExit;
-    private ListPreference mTerminationListPreference;
 
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.application_preferences);
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mPrefs.registerOnSharedPreferenceChangeListener(this);
-        mCastManager = PocketSermonsMobileApplication.getCastManager();
+        mCastManager = VideoCastManager.getInstance();
 
-        // -- Termination Policy -------------------//
-        mTerminationListPreference = (ListPreference) getPreferenceScreen().findPreference(
-                TERMINATION_POLICY_KEY);
-        mTerminationListPreference.setSummary(getTerminationSummary(mPrefs));
-        mCastManager.setStopOnDisconnect(mStopOnExit);
+        /* Volume settings */
+        mVolumeListPreference = (ListPreference) getPreferenceScreen()
+                .findPreference(VOLUME_SELECTION_KEY);
+        String volValue = mPrefs.getString(VOLUME_SELECTION_KEY,
+                getString(R.string.prefs_volume_default));
+        String volSummary = getResources().getString(R.string.prefs_volume_title_summary, volValue);
+        mVolumeListPreference.setSummary(volSummary);
 
         EditTextPreference versionPref = (EditTextPreference) findPreference(APP_VERSION_KEY);
         versionPref.setTitle(getString(R.string.version, Utils.getAppVersionName(this),
@@ -57,18 +56,11 @@ public class CastPreference extends PreferenceActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (TERMINATION_POLICY_KEY.equals(key)) {
-            mTerminationListPreference.setSummary(getTerminationSummary(sharedPreferences));
-            mCastManager.setStopOnDisconnect(mStopOnExit);
+        if (VOLUME_SELECTION_KEY.equals(key)) {
+            String value = sharedPreferences.getString(VOLUME_SELECTION_KEY, "");
+            String summary = getResources().getString(R.string.prefs_volume_title_summary, value);
+            mVolumeListPreference.setSummary(summary);
         }
-    }
-
-    private String getTerminationSummary(SharedPreferences sharedPreferences) {
-        String valueString = sharedPreferences.getString(TERMINATION_POLICY_KEY, "0");
-        String[] labels = getResources().getStringArray(R.array.prefs_termination_policy_names);
-        int value = CONTINUE_ON_DISCONNECT.equals(valueString) ? 0 : 1;
-        mStopOnExit = value != 0;
-        return labels[value];
     }
 
     public static boolean isFtuShown(Context context) {

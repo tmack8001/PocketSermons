@@ -11,8 +11,6 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
-import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.tmack.pocketsermons.common.utils.Utils;
 
 import java.util.HashMap;
 

@@ -2,9 +2,9 @@ package com.tmack.pocketsermons.utils;
 
 import android.content.Context;
 
-import com.google.sample.castcompanionlibrary.cast.exceptions.CastException;
-import com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionException;
-import com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
+import com.google.android.libraries.cast.companionlibrary.cast.exceptions.CastException;
+import com.google.android.libraries.cast.companionlibrary.cast.exceptions.NoConnectionException;
+import com.google.android.libraries.cast.companionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
 import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.common.utils.Utils;
 
@@ -27,7 +27,7 @@ public class CastExceptionUtils {
     /**
      * A utility method to handle a few types of exceptions that are commonly thrown by the cast
      * APIs in this library. It has special treatments for
-     * {@link com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException}, {@link com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionException} and shows an
+     * {@link com.google.android.libraries.cast.companionlibrary.cast.exceptions.TransientNetworkDisconnectionException}, {@link com.google.android.libraries.cast.companionlibrary.cast.exceptions.NoConnectionException} and shows an
      * "Oops" dialog conveying certain messages to the user. The following resource IDs can be used
      * to control the messages that are shown:
      * <p/>

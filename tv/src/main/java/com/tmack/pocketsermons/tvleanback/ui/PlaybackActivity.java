@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.media.MediaMetadata;
 import android.media.MediaPlayer;
+import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
 import android.net.Uri;
@@ -36,9 +37,6 @@ public class PlaybackActivity extends Activity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.playback_controls);
-
-        loadViews();
 
         mSession = new MediaSession(this, "PocketSermons");
         mSession.setCallback(new MediaSessionCallback());
@@ -46,6 +44,10 @@ public class PlaybackActivity extends Activity implements
                 MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
 
         mSession.setActive(true);
+
+        setMediaController(new MediaController(this, mSession.getSessionToken()));
+        setContentView(R.layout.playback_controls);
+        loadViews();
     }
 
     @Override
@@ -149,6 +151,8 @@ public class PlaybackActivity extends Activity implements
 
     private void loadViews() {
         mVideoView = (VideoView) findViewById(R.id.videoView);
+        mVideoView.setFocusable(false);
+        mVideoView.setFocusableInTouchMode(false);
     }
 
     private void setupCallbacks() {

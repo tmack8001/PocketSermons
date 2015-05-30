@@ -32,7 +32,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
-import com.google.sample.castcompanionlibrary.utils.Utils;
+import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tmack.pocketsermons.tvleanback.R;
@@ -81,7 +81,7 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         prepareBackgroundManager();
 
-        mSelectedMedia = Utils.toMediaInfo(getActivity().getIntent()
+        mSelectedMedia = Utils.bundleToMediaInfo(getActivity().getIntent()
                 .getBundleExtra(DetailsActivity.MEDIA));
         if (mSelectedMedia != null || checkGlobalSearchIntent()) {
             removeNotification(getActivity().getIntent()
@@ -194,7 +194,7 @@ public class VideoDetailsFragment extends DetailsFragment {
             public void onActionClicked(Action action) {
                 if (action.getId() == ACTION_WATCH_MEDIA) {
                     Intent intent = new Intent(getActivity(), PlaybackActivity.class);
-                    intent.putExtra(DetailsActivity.MEDIA, Utils.fromMediaInfo(mSelectedMedia));
+                    intent.putExtra(DetailsActivity.MEDIA, Utils.mediaInfoToBundle(mSelectedMedia));
                     startActivity(intent);
                 } else {
                     // TODO: add action to favorite a media clip
@@ -247,7 +247,7 @@ public class VideoDetailsFragment extends DetailsFragment {
                 MediaInfo mediaInfo = (MediaInfo) item;
                 Log.d(TAG, "Item: " + item.toString());
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailsActivity.MEDIA, Utils.fromMediaInfo(mediaInfo));
+                intent.putExtra(DetailsActivity.MEDIA, Utils.mediaInfoToBundle(mediaInfo));
 
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),

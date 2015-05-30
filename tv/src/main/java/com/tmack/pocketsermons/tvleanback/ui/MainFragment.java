@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.common.images.WebImage;
-import com.google.sample.castcompanionlibrary.utils.Utils;
+import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tmack.pocketsermons.tvleanback.R;
@@ -277,7 +277,7 @@ public class MainFragment extends BrowseFragment implements
 
                 // TODO: change MEDIA to Sermon object instead of the gms-cast:MediaInfo object
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailsActivity.MEDIA, Utils.fromMediaInfo(mediaInfo));
+                intent.putExtra(DetailsActivity.MEDIA, Utils.mediaInfoToBundle(mediaInfo));
 
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),

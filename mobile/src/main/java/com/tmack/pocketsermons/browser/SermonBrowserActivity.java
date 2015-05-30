@@ -20,14 +20,15 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.google.sample.castcompanionlibrary.cast.BaseCastManager;
-import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.google.sample.castcompanionlibrary.cast.callbacks.IVideoCastConsumer;
-import com.google.sample.castcompanionlibrary.cast.callbacks.VideoCastConsumerImpl;
-import com.google.sample.castcompanionlibrary.widgets.MiniController;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.libraries.cast.companionlibrary.cast.BaseCastManager;
+import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
+import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumer;
+import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumerImpl;
+import com.google.android.libraries.cast.companionlibrary.widgets.MiniController;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
-import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.R;
+import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.common.utils.Utils;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 import com.tmack.pocketsermons.settings.CastPreference;
@@ -48,10 +49,10 @@ public class SermonBrowserActivity extends ActionBarActivity {
     private Toolbar mToolbar;
 
     private VideoCastManager mCastManager;
-    private IVideoCastConsumer mCastConsumer;
+    private VideoCastConsumer mCastConsumer;
     private MiniController mMini;
     private MenuItem mediaRouteMenuItem;
-    boolean mIsHoneyCombOrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    private boolean mIsHoneyCombOrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
     private Tracker mTracker;
 
@@ -64,7 +65,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
 
         // TODO: If exposing deep links into your app, handle intents here.
 
-        mCastManager = PocketSermonsMobileApplication.getCastManager();
+        mCastManager = VideoCastManager.getInstance();
         mTracker = PocketSermonsApplication.getTracker(PocketSermonsApplication.TrackerName.APP_TRACKER, getApplicationContext());
 
         setupToolbar();
@@ -72,7 +73,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
         setupCastListener();
 
         // reconnect session with ChromeCast if Activity was killed or disconnected
-        mCastManager.reconnectSessionIfPossible();
+        mCastManager.reconnectSessionIfPossible(20);
 
         pageView(mTracker);
     }
@@ -123,8 +124,9 @@ public class SermonBrowserActivity extends ActionBarActivity {
             }
 
             @Override
-            public void onReconnectionStatusChanged(int status) {
-                Log.d(TAG, "onReconnectionStatusChanged(): " + status);
+            public void onConnectionFailed(ConnectionResult result) {
+                Log.d(TAG, "onConnectionFailed(): " + result.toString());
+                Utils.showToast(SermonBrowserActivity.this, R.string.failed_to_connect);
             }
         };
     }
@@ -133,6 +135,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main, menu);
+
         mediaRouteMenuItem = mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
         return true;
     }
@@ -174,7 +177,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume() was called");
-        mCastManager = PocketSermonsMobileApplication.getCastManager();
+        mCastManager = VideoCastManager.getInstance();
         if (null != mCastManager) {
             mCastManager.addVideoCastConsumer(mCastConsumer);
             mCastManager.incrementUiCounter();
@@ -195,7 +198,6 @@ public class SermonBrowserActivity extends ActionBarActivity {
         if (null != mCastManager) {
             mMini.removeOnMiniControllerChangedListener(mCastManager);
             mCastManager.removeMiniController(mMini);
-            mCastManager.clearContext(this);
         }
         super.onDestroy();
     }

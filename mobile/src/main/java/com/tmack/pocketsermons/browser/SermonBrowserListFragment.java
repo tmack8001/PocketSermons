@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.google.android.gms.cast.MediaInfo;
-import com.google.sample.castcompanionlibrary.utils.Utils;
+import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.common.data.VideoItemListLoader;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
@@ -51,7 +51,7 @@ public class SermonBrowserListFragment extends ListFragment implements
         super.onActivityCreated(savedInstanceState);
         getListView().setFastScrollEnabled(true);
         mAdapter = new SermonListAdapter(getActivity());
-        setEmptyText(getString(R.string.no_sermon_found));
+        setEmptyText(getString(com.tmack.pocketsermons.common.R.string.no_sermon_found));
         setListAdapter(mAdapter);
         setListShown(false);
         getLoaderManager().initLoader(0, null, this);
@@ -105,7 +105,7 @@ public class SermonBrowserListFragment extends ListFragment implements
 
     private void handleNavigation(MediaInfo selectedMedia, View view, boolean autoStart) {
         Intent intent = new Intent(getActivity(), LocalVideoActivity.class);
-        intent.putExtra("media", Utils.fromMediaInfo(selectedMedia));
+        intent.putExtra("media", Utils.mediaInfoToBundle(selectedMedia));
         intent.putExtra("shouldStart", autoStart);
         // create the transition animation - the images in the layouts
         // of both activities are defined with android:transitionName="transtion_image_hero"

@@ -38,7 +38,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
-import com.google.sample.castcompanionlibrary.utils.Utils;
+import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.tmack.pocketsermons.tvleanback.R;
 import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.common.model.Sermon;
@@ -97,7 +97,7 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         sContext = getActivity();
 
         mItems = new ArrayList<>();
-        mSelectedMedia = Utils.toMediaInfo(getActivity().getIntent()
+        mSelectedMedia = Utils.bundleToMediaInfo(getActivity().getIntent()
                 .getBundleExtra(DetailsActivity.MEDIA));
         Sermon sermon = Sermon.fromMediaInfo(mSelectedMedia);
 
@@ -459,7 +459,7 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
             if (mediaInfo != null) {
                 Log.d(TAG, "Item: " + item.toString());
                 Intent intent = new Intent(getActivity(), PlaybackActivity.class);
-                intent.putExtra(DetailsActivity.MEDIA, Utils.fromMediaInfo(mediaInfo));
+                intent.putExtra(DetailsActivity.MEDIA, Utils.mediaInfoToBundle(mediaInfo));
 
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),

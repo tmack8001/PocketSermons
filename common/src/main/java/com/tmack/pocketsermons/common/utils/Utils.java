@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
@@ -57,7 +58,6 @@ public class Utils {
                 .show();
     }
 
-
     /**
      * Gets the version of the app.
      *
@@ -73,6 +73,16 @@ public class Utils {
             // do nothing
         }
         return versionString;
+    }
+
+    /**
+     * Shows a (long) toast.
+     *
+     * @param context
+     * @param msg
+     */
+    public static void showToast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
     /**

@@ -32,11 +32,13 @@ import android.widget.VideoView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.cast.ApplicationMetadata;
+import com.google.android.gms.cast.CastStatusCodes;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
-import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.google.sample.castcompanionlibrary.cast.callbacks.VideoCastConsumerImpl;
-import com.google.sample.castcompanionlibrary.widgets.MiniController;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
+import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumerImpl;
+import com.google.android.libraries.cast.companionlibrary.widgets.MiniController;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
@@ -119,7 +121,7 @@ public class LocalVideoActivity extends ActionBarActivity {
         loadViews();
 
         // setup ChromeCast Manager
-        mCastManager = PocketSermonsMobileApplication.getCastManager();
+        mCastManager = VideoCastManager.getInstance();
         mTracker = PocketSermonsApplication.getTracker(PocketSermonsApplication.TrackerName.APP_TRACKER, getApplicationContext());
         setupToolbar();
         setupControlsCallbacks();
@@ -128,8 +130,8 @@ public class LocalVideoActivity extends ActionBarActivity {
 
         Bundle b = getIntent().getExtras();
         if (null != b) {
-            mSelectedMedia = com.google.sample.castcompanionlibrary.utils.Utils
-                    .toMediaInfo(getIntent().getBundleExtra("media"));
+            mSelectedMedia = com.google.android.libraries.cast.companionlibrary.utils.Utils
+                    .bundleToMediaInfo(getIntent().getBundleExtra("media"));
             mShouldStartPlayback = b.getBoolean("shouldStart", false);
             int startPosition = b.getInt("startPosition", 0);
 
@@ -239,6 +241,7 @@ public class LocalVideoActivity extends ActionBarActivity {
                         } catch (Exception e) {
                             CastExceptionUtils.handleException(LocalVideoActivity.this, e);
                         }
+                        return;
                     } else {
                         updatePlaybackLocation(PlaybackLocation.REMOTE);
                     }
@@ -284,6 +287,29 @@ public class LocalVideoActivity extends ActionBarActivity {
                         R.string.connection_recovered);
             }
 
+            @Override
+            public void onApplicationConnectionFailed(int errorCode) {
+                String msgPrefix = "onApplicationConnectionFailed(): failed due to: ";
+                switch (errorCode) {
+                    case CastStatusCodes.APPLICATION_NOT_FOUND:
+                        Log.d(TAG, msgPrefix + "ERROR_APPLICATION_NOT_FOUND");
+                        Utils.showToast(LocalVideoActivity.this, R.string.failed_to_find_app);
+                        break;
+                    case CastStatusCodes.TIMEOUT:
+                        Log.d(TAG, msgPrefix + "ERROR_TIMEOUT");
+                        Utils.showToast(LocalVideoActivity.this, R.string.failed_app_launch_timeout);
+                        break;
+                    default:
+                        Log.d(TAG, msgPrefix + "errorCode=" + errorCode);
+                        Utils.showToast(LocalVideoActivity.this, R.string.failed_to_launch_app);
+                        break;
+                }
+            }
+
+            @Override
+            public void onConnectionFailed(ConnectionResult result) {
+                Utils.showToast(LocalVideoActivity.this, R.string.failed_to_connect);
+            }
         };
     }
 
@@ -296,13 +322,13 @@ public class LocalVideoActivity extends ActionBarActivity {
                 startControllersTimer();
             } else {
                 stopControllersTimer();
-                setCoverArtStatus(com.google.sample.castcompanionlibrary.utils.Utils
+                setCoverArtStatus(com.google.android.libraries.cast.companionlibrary.utils.Utils
                         .getImageUrl(mSelectedMedia, 0));
             }
             getSupportActionBar().setTitle("");
         } else {
             stopControllersTimer();
-            setCoverArtStatus(com.google.sample.castcompanionlibrary.utils.Utils
+            setCoverArtStatus(com.google.android.libraries.cast.companionlibrary.utils.Utils
                     .getImageUrl(mSelectedMedia, 0));
             updateControllersVisibility(true);
         }
@@ -382,7 +408,7 @@ public class LocalVideoActivity extends ActionBarActivity {
     }
 
     private void loadRemoteMedia(int position, boolean autoplay) {
-        mCastManager.startCastControllerActivity(this, mSelectedMedia, position, autoplay);
+        mCastManager.startVideoCastControllerActivity(this, mSelectedMedia, position, autoplay);
     }
 
     private void setCoverArtStatus(String url) {
@@ -499,7 +525,6 @@ public class LocalVideoActivity extends ActionBarActivity {
         if (null != mCastManager) {
             mMini.removeOnMiniControllerChangedListener(mCastManager);
             mCastManager.removeMiniController(mMini);
-            mCastManager.clearContext(this);
             mCastConsumer = null;
         }
         stopControllersTimer();
@@ -516,7 +541,7 @@ public class LocalVideoActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume was called");
-        mCastManager = PocketSermonsMobileApplication.getCastManager();
+        mCastManager = VideoCastManager.getInstance();
         mCastManager.addVideoCastConsumer(mCastConsumer);
         mCastManager.incrementUiCounter();
         super.onResume();
@@ -577,7 +602,7 @@ public class LocalVideoActivity extends ActionBarActivity {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 Log.d(TAG, "onPrepared is reached");
                 mDuration = mediaPlayer.getDuration();
-                mEndText.setText(com.google.sample.castcompanionlibrary.utils.Utils
+                mEndText.setText(com.google.android.libraries.cast.companionlibrary.utils.Utils
                         .formatMillis(mDuration));
                 restartTrickplayTimer();
             }
@@ -606,7 +631,7 @@ public class LocalVideoActivity extends ActionBarActivity {
         mSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mStartText.setText(com.google.sample.castcompanionlibrary.utils.Utils
+                mStartText.setText(com.google.android.libraries.cast.companionlibrary.utils.Utils
                         .formatMillis(progress));
             }
 
@@ -645,9 +670,9 @@ public class LocalVideoActivity extends ActionBarActivity {
     private void updateSeekbar(int position, int duration) {
         mSeekbar.setProgress(position);
         mSeekbar.setMax(duration);
-        mStartText.setText(com.google.sample.castcompanionlibrary.utils.Utils
+        mStartText.setText(com.google.android.libraries.cast.companionlibrary.utils.Utils
                 .formatMillis(position));
-        mEndText.setText(com.google.sample.castcompanionlibrary.utils.Utils
+        mEndText.setText(com.google.android.libraries.cast.companionlibrary.utils.Utils
                 .formatMillis(duration));
     }
 
