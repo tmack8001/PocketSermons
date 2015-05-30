@@ -1,30 +1,20 @@
 language: android
-jdk: oraclejdk7
 android:
-  components:
-    # The BuildTools version used by your project
-    - build-tools-22.0.0
+    components:
+        # The BuildTools version used by this project and CastCompanionLibrary
+        - build-tools-20.0.0
+        - build-tools-22.0.0
 
-    # The SDK version used to compile your project
-    - android-21
+        # The SDK version used to compile this project
+        - android-21
+        - android-22
 
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-21
+        # Additional components
+        - extra-android-support
+        - extra-google-google_play_services
 
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
-    - sys-img-x86-android-21
+        # Emulators needed to run tests (eventually)
+        #- sys-img-armebi-v7a-android-22
+        #- sys-x86-android-tv-1
 
-  before_script:
-    # Create and start emulator
-    - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-    - emulator -avd test -no-skin -no-audio -no-window &
-    - adb wait-for-device
-    - adb shell input keyevent 82 &
-
-  script:
-    - ./gradlew assemble
+script: ./gradlew build --stacktrace

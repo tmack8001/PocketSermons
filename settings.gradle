@@ -1,2 +1,5 @@
-include ':mobile', ':tv', ':api', ':common'
 include ':CastCompanionLibrary'
+include ':common'
+include ':api'
+include ':mobile'
+include ':tv'
