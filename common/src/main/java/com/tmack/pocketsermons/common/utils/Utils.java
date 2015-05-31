@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
-import android.content.res.Configuration;
 import android.graphics.Point;
+import android.media.MediaMetadataRetriever;
+import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.tmack.pocketsermons.common.R;
+
+import java.util.HashMap;
 
 /**
  * A collection of utility methods, all static.
@@ -114,39 +117,13 @@ public class Utils {
                 .show();
     }
 
-    /**
-     * Formats time in milliseconds to hh:mm:ss string format.
-     *
-     * @param millis
-     * @return
-     */
-    public static String formatMillis(int millis) {
-        String result = "";
-        int hr = millis / 3600000;
-        millis %= 3600000;
-        int min = millis / 60000;
-        millis %= 60000;
-        int sec = millis / 1000;
-        if (hr > 0) {
-            result += hr + ":";
-        }
-        if (min >= 0) {
-            if (min > 9) {
-                result += min + ":";
-            } else {
-                result += "0" + min + ":";
-            }
-        }
-        if (sec > 9) {
-            result += sec;
+    public static long getDuration(String videoUrl) {
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            mmr.setDataSource(videoUrl, new HashMap<String, String>());
         } else {
-            result += "0" + sec;
+            mmr.setDataSource(videoUrl);
         }
-        return result;
-    }
-
-    public static int dpToPx(int dp, Context ctx) {
-        float density = ctx.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
+        return Long.parseLong(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
     }
 }

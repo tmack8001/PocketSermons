@@ -69,11 +69,6 @@ public class VideoDetailsFragment extends DetailsFragment {
     private Target mBackgroundTarget;
     private DisplayMetrics mMetrics;
 
-    public static int dpToPx(int dp, Context ctx) {
-        float density = ctx.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate DetailsFragment");
@@ -155,8 +150,8 @@ public class VideoDetailsFragment extends DetailsFragment {
         Log.d(TAG, "setupDetailsOverviewRow: " + mSelectedMedia.toString());
         final DetailsOverviewRow row = new DetailsOverviewRow(mSelectedMedia);
         row.setImageDrawable(getResources().getDrawable(R.drawable.default_background));
-        int width = dpToPx(DETAIL_THUMB_WIDTH, getActivity());
-        int height = dpToPx(DETAIL_THUMB_HEIGHT, getActivity());
+        int width = Utils.convertDpToPixel(getActivity(), DETAIL_THUMB_WIDTH);
+        int height = Utils.convertDpToPixel(getActivity(), DETAIL_THUMB_HEIGHT);
         Glide.with(getActivity())
                 .load(Sermon.fromMediaInfo(mSelectedMedia).getCardImageUrl())
                 .centerCrop()
