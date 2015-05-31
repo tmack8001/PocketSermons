@@ -10,6 +10,8 @@ android:
         # Additional components
         - extra-android-support
         - extra-google-google_play_services
+        - extra-google-m2repository
+        - extra-android-m2repository
 
         # Emulators needed to run tests (eventually)
         #- sys-img-armebi-v7a-android-22
