@@ -26,3 +26,15 @@ allprojects {
         }
     }
 }
+
+def getDate(format) {
+    def date = new Date()
+    def formattedDate = date.format(format)
+    return formattedDate
+}
+
+task showPropertiesTask << {
+    println "Version: $version_number"
+    println "Build Number: $build_number"
+    println "Signing Config File: $build_signingConfig"
+}

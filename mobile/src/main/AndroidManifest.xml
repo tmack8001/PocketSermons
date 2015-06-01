@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tmack.pocketsermons">
+    package="com.tmack.pocketsermons" >
 
     <!-- required for streaming of network content -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,7 +18,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.PocketSermons">
+        android:theme="@style/Theme.PocketSermons" >
 
         <!-- required for Cast SDK which is within Google Play Services -->
         <meta-data
@@ -27,39 +27,40 @@
 
         <!-- Launcher Activity -->
         <activity
-            android:name="com.tmack.pocketsermons.browser.SermonBrowserActivity"
+            android:name=".browser.SermonBrowserActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-
         <activity
-            android:name="com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity"
+            android:name=".mediaPlayer.LocalVideoActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize|screenLayout|uiMode"
             android:label="@string/title_activity_video_view"
             android:launchMode="singleTask"
-            android:parentActivityName="com.tmack.pocketsermons.browser.SermonBrowserActivity"
-            android:theme="@style/Theme.PocketSermonsOverlay">
+            android:parentActivityName=".browser.SermonBrowserActivity"
+            android:theme="@style/Theme.PocketSermonsOverlay" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <!-- clicks into App via ChromeCast Notification Controller  -->
+        <!-- clicks into App via ChromeCast Notification Controller -->
         <activity
             android:name="com.google.android.libraries.cast.companionlibrary.cast.player.VideoCastControllerActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName="com.tmack.pocketsermons.browser.SermonBrowserActivity"
+            android:parentActivityName=".browser.SermonBrowserActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.PocketSermonsOverlay">
+            android:theme="@style/Theme.PocketSermonsOverlay" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tmack.pocketsermons.browser.SermonBrowserActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -67,15 +68,15 @@
 
         <!-- Application Preferences Activity -->
         <activity
-            android:name="com.tmack.pocketsermons.settings.CastPreference"
-            android:label="@string/action_settings">
+            android:name=".settings.CastPreference"
+            android:label="@string/action_settings" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
         <!-- Video Intent Receiver -->
-        <receiver android:name="com.google.android.libraries.cast.companionlibrary.remotecontrol.VideoIntentReceiver">
+        <receiver android:name="com.google.android.libraries.cast.companionlibrary.remotecontrol.VideoIntentReceiver" >
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
@@ -87,7 +88,7 @@
         <!-- Video Cast Notification Service -->
         <service
             android:name="com.google.android.libraries.cast.companionlibrary.notification.VideoCastNotificationService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.libraries.cast.companionlibrary.action.toggleplayback" />
                 <action android:name="com.google.android.libraries.cast.companionlibrary.action.stop" />

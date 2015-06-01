@@ -1,15 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'com.tmack.sermonstream'
-            keyPassword 'androiddev'
-            storeFile file('/Users/tmack/dev/keystore.jks')
-            storePassword 'androiddev'
-        }
-    }
-
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
@@ -17,25 +8,35 @@ android {
         applicationId "com.tmack.sermonstream"
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 6
-        versionName "0.2.0atv"
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.config
-        }
-
-        debug {
-            minifyEnabled
-            signingConfig signingConfigs.config
-            versionNameSuffix '.tv.debug-build-' + new Date().format('yyyyMMdd')
-        }
+        versionCode project.build_number as Integer ?: 0
+        versionName project.version_number
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    if (project.hasProperty("build_signingConfig")
+            && file(project.build_signingConfig).exists()) {
+        logger.debug("[SIGNING CONFIG] Applying signing configuration to release builds from: $project.build_signingConfig");
+        apply from: project.build_signingConfig, to: android;
+    } else {
+        logger.debug("[SIGNING CONFIG] No release signing configuration found.");
+        logger.debug("[SIGNING CONFIG] $project.build_signingConfig");
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            versionNameSuffix '.atv.release'
+        }
+
+        debug {
+            minifyEnabled
+            signingConfig signingConfigs.debug
+            versionNameSuffix '.atv.debug-' + getDate('yyyyMMddHHmm')
+        }
     }
 }
 

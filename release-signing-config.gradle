@@ -1,0 +1,15 @@
+signingConfigs {
+    release {
+        keyAlias 'com.tmack.sermonstream'
+        keyPassword "${System.env.ALIAS_PWD}"
+        storeFile file('release.jks')
+        storePassword "${System.env.KEYSTORE_PWD}"
+    }
+
+    debug {
+        keyAlias 'com.tmack.sermonstream'
+        keyPassword "${System.env.ALIAS_PWD}"
+        storeFile file('release.jks')
+        storePassword "${System.env.KEYSTORE_PWD}"
+    }
+}
