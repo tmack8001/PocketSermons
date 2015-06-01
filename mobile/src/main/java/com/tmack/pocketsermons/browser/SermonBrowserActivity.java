@@ -26,6 +26,7 @@ import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
 import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumer;
 import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumerImpl;
 import com.google.android.libraries.cast.companionlibrary.widgets.MiniController;
+import com.tmack.pocketsermons.AnalyticsTrackers;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.common.PocketSermonsApplication;
@@ -66,7 +67,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
         // TODO: If exposing deep links into your app, handle intents here.
 
         mCastManager = VideoCastManager.getInstance();
-        mTracker = PocketSermonsApplication.getTracker(PocketSermonsApplication.TrackerName.APP_TRACKER, getApplicationContext());
+        mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
 
         setupToolbar();
         setupMiniController();

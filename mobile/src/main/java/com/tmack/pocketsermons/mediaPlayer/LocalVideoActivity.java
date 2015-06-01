@@ -41,6 +41,7 @@ import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCa
 import com.google.android.libraries.cast.companionlibrary.widgets.MiniController;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.tmack.pocketsermons.AnalyticsTrackers;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.common.PocketSermonsApplication;
@@ -122,7 +123,7 @@ public class LocalVideoActivity extends ActionBarActivity {
 
         // setup ChromeCast Manager
         mCastManager = VideoCastManager.getInstance();
-        mTracker = PocketSermonsApplication.getTracker(PocketSermonsApplication.TrackerName.APP_TRACKER, getApplicationContext());
+        mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
         setupToolbar();
         setupControlsCallbacks();
         setupMiniController();

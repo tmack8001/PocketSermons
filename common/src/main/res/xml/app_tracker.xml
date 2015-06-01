@@ -1,8 +1,13 @@
 <resource>
+    <!-- End current session if app sleeps for a period of time -->
     <integer name="ga_sessionTimeout">300</integer>
 
-    <!-- Enable automatic Activity Measurement -->
+    <!-- Enable automatic Activity measurement -->
     <bool name="ga_autoActivityTracking">true</bool>
+
+    <!--  The property id associated with this analytics tracker -->
+    <string name="ga_trackingId">UA-55404743-1</string>
+
     <!-- Report uncaught exceptions -->
     <bool name="ga_reportUncaughtExceptions">true</bool>
 
@@ -13,6 +18,4 @@
     <screenName name="com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity">
         TheMount SermonVideoView
     </screenName>
-
-    <string name="ga_trackingId">UA-55404743-1</string>
 </resource>
