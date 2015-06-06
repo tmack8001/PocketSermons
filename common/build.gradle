@@ -23,7 +23,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:7.5.0'
     compile files('../libs/volley.jar')
     compile project(':CastCompanionLibrary')
-    compile project(':api')
 
     // testing dependencies
     testCompile 'junit:junit:4.12'

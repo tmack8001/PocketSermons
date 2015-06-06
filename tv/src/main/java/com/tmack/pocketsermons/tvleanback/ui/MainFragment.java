@@ -35,7 +35,7 @@ import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tmack.pocketsermons.tvleanback.R;
-import com.tmack.pocketsermons.common.data.VideoItemMapLoader;
+import com.tmack.pocketsermons.data.VideoItemMapLoader;
 import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.PicassoBackgroundManagerTarget;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;

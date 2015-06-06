@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.tmack.pocketsermons.R;
-import com.tmack.pocketsermons.common.data.VideoItemListLoader;
+import com.tmack.pocketsermons.data.VideoItemListLoader;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 
 import java.util.List;

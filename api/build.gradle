@@ -23,6 +23,7 @@ dependencies {
     // include both of Google's libraries GSON and Volley for API integration
     compile 'com.google.code.gson:gson:2.3'
     compile files('../libs/volley.jar')
+    compile project(':common')
 
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:mediarouter-v7:22.2.0'

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tmack.pocketsermons.api.R;
 import com.tmack.pocketsermons.api.SermonsResponse;
+import com.tmack.pocketsermons.common.utils.Utils;
 import com.tmack.pocketsermons.model.Sermon;
 
 import org.json.JSONException;
@@ -27,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,8 +38,10 @@ import java.util.concurrent.ConcurrentMap;
  * Provider used to load video resources.
  */
 public class VideoProvider {
-
+    // set of constants
     private static final String TAG = "VideoProvider";
+    private static final int API_CONNECT_TIMEOUT_MS = 5000; // 5 seconds
+
     // set of favorites
     private static final Set<String> sFavoriteList = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
     private static Context sContext;
@@ -259,6 +262,7 @@ public class VideoProvider {
                             } catch (JSONException e) {
                                 Log.d(TAG, "API request error", e);
                                 e.printStackTrace();
+                                Utils.showToast(sContext, R.string.unknown_server_error);
                             }
                         }
                     },
@@ -267,9 +271,14 @@ public class VideoProvider {
                         public void onErrorResponse(VolleyError volleyError) {
                             Log.d(TAG, "API request failed", volleyError);
                             VolleyLog.e("Error: ", volleyError.getMessage());
-                            // TODO: display error to user regarding network errors
+                            Utils.showToast(sContext, R.string.network_error);
                         }
                     });
+
+            request.setRetryPolicy(new DefaultRetryPolicy(
+                    API_CONNECT_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         }
 
         return request;
