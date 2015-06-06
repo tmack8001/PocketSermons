@@ -8,4 +8,7 @@
     <string name="sermons_path">/sermons</string>
     <string name="speakers_path">/speakers</string>
     <string name="churches_path">/churches</string>
+
+    <string name="unknown_server_error">Unknown Server Error Occurred</string>
+    <string name="network_error">A Network Error Occurred, Please Try Again</string>
 </resources>

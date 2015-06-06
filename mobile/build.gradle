@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
-// apply the signing configuration, if provided
-
+apply plugin: 'com.github.triplet.play'
 
 android {
     compileSdkVersion 22
@@ -20,6 +18,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
+    // apply the signing configuration, if provided
     if (project.hasProperty("build_signingConfig")
             && file(project.build_signingConfig).exists()) {
         logger.debug("[SIGNING CONFIG] Applying signing configuration to release builds from: $project.build_signingConfig");
@@ -41,6 +40,14 @@ android {
             versionNameSuffix '.debug-' + getDate('yyyyMMddHHmm')
         }
     }
+}
+
+play {
+    serviceAccountEmail = "${System.env.GOOGLE_PLAY_SERVICE_EMAIL}"
+    // plugin doesn't allow for setting to null or empty of pk12 file
+    pk12File = project.hasProperty('gps_pk_file') ? file(gps_pk_file) : '~/'
+    uploadImages = true
+    track = project.hasProperty('gps_track') ? gps_track : 'alpha'
 }
 
 dependencies {
@@ -66,7 +73,6 @@ dependencies {
     compile project(':CastCompanionLibrary')
     compile project(':api')
     compile project(':common')
-
     // testing dependencies
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
