@@ -17,9 +17,14 @@ Open Source Sermon video Android Application is designed for educational purpose
 2. Update all play store files to upload via ```./gradlew mobile:publishListingRelease```
 3. Upload alpha APK for final testing of :mobile ```./gradlew mobile:publishApkRelease```
 4. Up the code revision number in ```./gradle.properties``` in preparation of :tv release
-5. Upload alpha APK for final testing of :tv ```./gradlew tv:publishApkRelease
+5. Upload alpha APK for final testing of :tv ```./gradlew tv:publishApkRelease```
 
 ## Change List
+0.2.2
+  * Clean up usage of Android Support Library
+  * Make use of Android's Recycler View
+  * Collapsible Toolbar making it easier to scroll through content
+
 0.2.1
   * Adapting to the CCL v2.1
   * Fixing some typos and minor issues

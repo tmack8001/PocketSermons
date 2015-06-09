@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -54,7 +54,7 @@ import org.json.JSONException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LocalVideoActivity extends ActionBarActivity {
+public class LocalVideoActivity extends AppCompatActivity {
 
     private static final String TAG = "SermonVideoActivity";
     private static final float ASPECT_RATIO = 72f / 128;
@@ -168,7 +168,7 @@ public class LocalVideoActivity extends ActionBarActivity {
     }
 
     private void colorize(Bitmap photo) {
-        Palette palette = Palette.generate(photo);
+        Palette palette = Palette.from(photo).generate();
         applyPalette(palette);
     }
 
@@ -665,8 +665,6 @@ public class LocalVideoActivity extends ActionBarActivity {
             }
         });
     }
-
-    // TODO: add volume increment functionality
 
     private void updateSeekbar(int position, int duration) {
         mSeekbar.setProgress(position);

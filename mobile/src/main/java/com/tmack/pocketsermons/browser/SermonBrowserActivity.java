@@ -6,7 +6,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.MediaRouteButton;
 import android.support.v7.media.MediaRouter;
 import android.support.v7.widget.Toolbar;
@@ -29,10 +34,12 @@ import com.google.android.libraries.cast.companionlibrary.widgets.MiniController
 import com.tmack.pocketsermons.AnalyticsTrackers;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
-import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.common.utils.Utils;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 import com.tmack.pocketsermons.settings.CastPreference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -41,13 +48,14 @@ import com.tmack.pocketsermons.settings.CastPreference;
  * representing item details and video resource.
  * <p/>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link SermonBrowserListFragment}.
+ * {@link SermonListFragment}.
  */
-public class SermonBrowserActivity extends ActionBarActivity {
+public class SermonBrowserActivity extends AppCompatActivity {
 
     private static final String TAG = "SermonBrowseActivity";
 
     private Toolbar mToolbar;
+    private ViewPager mViewPager;
 
     private VideoCastManager mCastManager;
     private VideoCastConsumer mCastConsumer;
@@ -70,6 +78,7 @@ public class SermonBrowserActivity extends ActionBarActivity {
         mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
 
         setupToolbar();
+        setupViewPager();
         setupMiniController();
         setupCastListener();
 
@@ -95,14 +104,12 @@ public class SermonBrowserActivity extends ActionBarActivity {
             @Override
             public void onConnectionSuspended(int cause) {
                 Log.d(TAG, "onConnectionSuspended() was called with cause: " + cause);
-                Utils.
-                        showToast(SermonBrowserActivity.this, R.string.connection_temp_lost);
+                Utils.showToast(SermonBrowserActivity.this, R.string.connection_temp_lost);
             }
 
             @Override
             public void onConnectivityRecovered() {
-                Utils.
-                        showToast(SermonBrowserActivity.this, R.string.connection_recovered);
+                Utils.showToast(SermonBrowserActivity.this, R.string.connection_recovered);
             }
 
             @Override
@@ -207,14 +214,56 @@ public class SermonBrowserActivity extends ActionBarActivity {
         // Configure the Toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
+            mToolbar.setCollapsible(true);
             setSupportActionBar(mToolbar);
         }
 
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+        }
+    }
+
+    private void setupViewPager() {
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        if (mViewPager != null) {
+            Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new SermonListFragment(), getString(R.string.sermons));
+            mViewPager.setAdapter(adapter);
+        }
     }
 
     private void setupMiniController() {
         mMini = (MiniController) findViewById(R.id.miniController1);
         mCastManager.addMiniController(mMini);
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
+
+        public Adapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragments.add(fragment);
+            mFragmentTitles.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
+        }
     }
 }

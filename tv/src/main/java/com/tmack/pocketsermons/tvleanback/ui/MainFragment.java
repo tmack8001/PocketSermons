@@ -135,7 +135,7 @@ public class MainFragment extends BrowseFragment implements
      */
     @Override
     public Loader<Map<String, List<MediaInfo>>> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "VideoItemLoader created");
+        Log.d(TAG, "VideoItemMapLoader created");
         return new VideoItemMapLoader(getActivity());
     }
 
