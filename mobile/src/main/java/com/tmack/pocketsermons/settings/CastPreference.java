@@ -70,7 +70,7 @@ public class CastPreference extends PreferenceActivity
 
     public static void setFtuShown(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        sharedPreferences.edit().putBoolean(FTU_SHOWN_KEY, true).commit();
+        sharedPreferences.edit().putBoolean(FTU_SHOWN_KEY, true).apply();
     }
 
     @Override

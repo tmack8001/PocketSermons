@@ -69,7 +69,8 @@
         <!-- Application Preferences Activity -->
         <activity
             android:name=".settings.CastPreference"
-            android:label="@string/action_settings" >
+            android:label="@string/action_settings"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

@@ -14,6 +14,11 @@
     <string name="unmute">Unmute</string>
     <string name="loading">Loading&#8230;</string>
 
+    <string name="sermons">Sermons</string>
+    <string name="series">Series</string>
+    <string name="speakers">Speakers</string>
+    <string name="churches">Churches</string>
+
     <string name="list_of_sermons">Select a Sermon</string>
     <string name="no_sermon_found">No sermons were found</string>
 
