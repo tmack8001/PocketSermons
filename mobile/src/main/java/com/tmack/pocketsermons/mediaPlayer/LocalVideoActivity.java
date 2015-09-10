@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -625,6 +626,7 @@ public class LocalVideoActivity extends AppCompatActivity {
                     updateControllersVisibility(true);
                 }
                 startControllersTimer();
+                view.performClick();
                 return false;
             }
         });

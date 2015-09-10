@@ -91,13 +91,13 @@ public class MainFragment extends BrowseFragment implements
         mBackgroundManager.attach(getActivity().getWindow());
         mBackgroundTarget = new PicassoBackgroundManagerTarget(mBackgroundManager);
 
-        mDefaultBackground = getResources().getDrawable(R.drawable.default_background);
+        mDefaultBackground = getResources().getDrawable(R.drawable.default_background, getActivity().getTheme());
         mMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
     }
 
     private void setupUIElements() {
-        setBadgeDrawable(getActivity().getResources().getDrawable(R.drawable.pocketsermons_banner));
+        setBadgeDrawable(getResources().getDrawable(R.drawable.pocketsermons_banner, getActivity().getTheme()));
         setTitle(getString(R.string.browse_title)); // Badge, when set, takes precedent
         // setup headers
         setHeadersState(HEADERS_ENABLED);
@@ -198,7 +198,7 @@ public class MainFragment extends BrowseFragment implements
     }
 
     protected void setDefaultBackground(int resourceId) {
-        mDefaultBackground = getResources().getDrawable(resourceId);
+        mDefaultBackground = getResources().getDrawable(resourceId, getActivity().getTheme());
     }
 
     protected void updateBackground(Uri uri) {

@@ -16,6 +16,9 @@
     <!-- Transitions -->
     <string name="transition_image_hero">transition_image_hero</string>
 
+    <!-- Local Player Activity Strings -->
+    <string name="start_time">00:00</string>
+
     <!-- Preferences -->
     <string name="prefs_header_application">Application Behavior</string>
     <string name="prefs_header_application_summary">Control how the application behaves on the TV</string>
