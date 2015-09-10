@@ -8,8 +8,8 @@ signingConfigs {
 
     debug {
         keyAlias 'com.tmack.sermonstream'
-        keyPassword "${System.env.ALIAS_PWD}"
+        keyPassword "androiddev"
         storeFile file('release.jks')
-        storePassword "${System.env.KEYSTORE_PWD}"
+        storePassword "androiddev"
     }
 }

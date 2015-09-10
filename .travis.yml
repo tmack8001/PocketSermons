@@ -2,10 +2,11 @@ language: android
 android:
     components:
         # The BuildTools version used by this project and CastCompanionLibrary
-        - build-tools-22.0.1
+        - build-tools-23.0.1
 
         # The SDK version used to compile this project
         - android-22
+        - android-23
 
         # Additional components
         - extra-android-support
@@ -14,7 +15,7 @@ android:
         - extra-android-m2repository
 
         # Emulators needed to run tests (eventually)
-        #- sys-img-armebi-v7a-android-22
+        #- sys-img-armebi-v7a-android-23
         #- sys-x86-android-tv-1
 
 script: ./gradlew build --stacktrace
