@@ -20,6 +20,12 @@ Open Source Sermon video Android Application is designed for educational purpose
 5. Upload alpha APK for final testing of :tv ```./gradlew tv:publishApkRelease```
 
 ## Change List
+0.2.3
+  * Updated to [CastCompanionLibrary v2.4](https://github.com/googlecast/CastCompanionLibrary-android#change-list) fixing a bunch of various underlying issues 
+  * Adding RecyclerView usage as per [#1](https://github.com/tmack8001/PocketSermons/issues/5)
+  * Provided ground work for a [Scrollable Reloading List](https://github.com/tmack8001/PocketSermons/issues/1)
+  * Clean up some use of deprecated code as per [#4](https://github.com/tmack8001/PocketSermons/issues/4)
+
 0.2.2
   * Clean up usage of Android Support Library
   * Make use of Android's Recycler View
