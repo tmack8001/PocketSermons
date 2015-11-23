@@ -79,11 +79,19 @@ public class MainFragment extends BrowseFragment implements
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (null != mBackgroundTimer) {
             Log.d(TAG, "onDestroy: " + mBackgroundTimer.toString());
             mBackgroundTimer.cancel();
+            mBackgroundTimer = null;
         }
+        mBackgroundManager = null;
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        mBackgroundManager.release();
+        super.onStop();
     }
 
     private void prepareBackgroundManager() {
@@ -193,14 +201,6 @@ public class MainFragment extends BrowseFragment implements
         mRowsAdapter.clear();
     }
 
-    protected void setDefaultBackground(Drawable background) {
-        mDefaultBackground = background;
-    }
-
-    protected void setDefaultBackground(int resourceId) {
-        mDefaultBackground = getResources().getDrawable(resourceId, getActivity().getTheme());
-    }
-
     protected void updateBackground(Uri uri) {
         Picasso.with(getActivity())
                 .load(uri.toString())
@@ -209,14 +209,6 @@ public class MainFragment extends BrowseFragment implements
                 .error(mDefaultBackground)
                 .into(mBackgroundTarget);
         mBackgroundTimer.cancel();
-    }
-
-    protected void updateBackground(Drawable drawable) {
-        BackgroundManager.getInstance(getActivity()).setDrawable(drawable);
-    }
-
-    protected void clearBackground() {
-        BackgroundManager.getInstance(getActivity()).setDrawable(mDefaultBackground);
     }
 
     private void startBackgroundTimer() {

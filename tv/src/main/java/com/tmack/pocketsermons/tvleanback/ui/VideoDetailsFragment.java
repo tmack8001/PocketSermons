@@ -21,6 +21,7 @@ import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
+import android.support.v17.leanback.widget.SparseArrayObjectAdapter;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -96,6 +97,7 @@ public class VideoDetailsFragment extends DetailsFragment {
 
     @Override
     public void onStop() {
+        mBackgroundManager.release();
         super.onStop();
     }
 
@@ -152,6 +154,7 @@ public class VideoDetailsFragment extends DetailsFragment {
         row.setImageDrawable(getResources().getDrawable(R.drawable.default_background));
         int width = Utils.convertDpToPixel(getActivity(), DETAIL_THUMB_WIDTH);
         int height = Utils.convertDpToPixel(getActivity(), DETAIL_THUMB_HEIGHT);
+
         Glide.with(getActivity())
                 .load(Sermon.fromMediaInfo(mSelectedMedia).getCardImageUrl())
                 .centerCrop()
@@ -167,8 +170,12 @@ public class VideoDetailsFragment extends DetailsFragment {
                     }
                 });
 
-        row.addAction(new Action(ACTION_WATCH_MEDIA, getResources().getString(R.string.watch_sermon)));
-        row.addAction(new Action(ACTION_FAVORITE, getResources().getString(R.string.favorite)));
+        SparseArrayObjectAdapter adapter = new SparseArrayObjectAdapter();
+        adapter.set(ACTION_WATCH_MEDIA, new Action(ACTION_WATCH_MEDIA,
+                getResources().getString(R.string.watch_sermon)));
+        adapter.set(ACTION_FAVORITE, new Action(ACTION_FAVORITE,
+                getResources().getString(R.string.favorite)));
+        row.setActionsAdapter(adapter);
 
         mAdapter.add(row);
     }
