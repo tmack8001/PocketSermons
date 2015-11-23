@@ -173,6 +173,8 @@ public class MainFragment extends BrowseFragment implements
                 mRowsAdapter.add(new ListRow(header, listRowAdapter));
                 i++;
             }
+        } else {
+            Log.e(TAG, "An error occurred fetching videos");
         }
 
         // TODO: customize preferences header and row items
