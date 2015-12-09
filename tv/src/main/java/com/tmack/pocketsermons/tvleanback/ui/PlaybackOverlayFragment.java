@@ -231,19 +231,20 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         mPrimaryActionsAdapter = new ArrayObjectAdapter(presenterSelector);
         mPlaybackControlsRow.setPrimaryActionsAdapter(mPrimaryActionsAdapter);
 
-        mPlayPauseAction = new PlayPauseAction(getActivity());
-        mSkipNextAction = new PlaybackControlsRow.SkipNextAction(getActivity());
-        mSkipPreviousAction = new PlaybackControlsRow.SkipPreviousAction(getActivity());
-        mFastForwardAction = new PlaybackControlsRow.FastForwardAction(getActivity());
-        mRewindAction = new PlaybackControlsRow.RewindAction(getActivity());
+        Activity activity = getActivity();
+        mPlayPauseAction = new PlayPauseAction(activity);
+        mSkipNextAction = new PlaybackControlsRow.SkipNextAction(activity);
+        mSkipPreviousAction = new PlaybackControlsRow.SkipPreviousAction(activity);
+        mFastForwardAction = new PlaybackControlsRow.FastForwardAction(activity);
+        mRewindAction = new PlaybackControlsRow.RewindAction(activity);
 
         mPrimaryActionsAdapter.add(mSkipPreviousAction);
         if (PRIMARY_CONTROLS > 3) {
-            mPrimaryActionsAdapter.add(new PlaybackControlsRow.RewindAction(getActivity()));
+            mPrimaryActionsAdapter.add(mRewindAction);
         }
         mPrimaryActionsAdapter.add(mPlayPauseAction);
         if (PRIMARY_CONTROLS > 3) {
-            mPrimaryActionsAdapter.add(new PlaybackControlsRow.FastForwardAction(getActivity()));
+            mPrimaryActionsAdapter.add(mFastForwardAction));
         }
         mPrimaryActionsAdapter.add(mSkipNextAction);
     }
