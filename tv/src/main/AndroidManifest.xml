@@ -15,7 +15,7 @@
     <application
         android:name="com.tmack.pocketsermons.common.PocketSermonsApplication"
         android:allowBackup="false"
-        android:icon="@drawable/pocketsermons_banner"
+        android:banner="@drawable/pocketsermons_banner"
         android:label="@string/app_name"
         android:logo="@drawable/pocketsermons_banner"
         android:theme="@style/Theme.PocketSermons.Leanback" >
