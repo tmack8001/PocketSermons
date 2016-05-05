@@ -109,4 +109,11 @@ public class Sermon {
     public void setVideoUri(String videoUri) {
         this.videoUri = videoUri;
     }
+
+    public boolean equals(Object s) {
+        if (s instanceof Sermon) {
+            return _id.equals(((Sermon) s).getId());
+        }
+        return false;
+    }
 }

@@ -1,6 +1,7 @@
 package com.tmack.pocketsermons.tvleanback.ui;
 
 import android.app.Activity;
+import android.drm.DrmStore;
 import android.graphics.Bitmap;
 import android.media.MediaMetadata;
 import android.media.MediaPlayer;
@@ -37,8 +38,6 @@ public class PlaybackActivity extends Activity {
     private int mPosition = 0;
     private long mStartTimeMillis;
     private long mDuration = -1;
-
-    private LeanbackPlaybackState mPlaybackState = LeanbackPlaybackState.IDLE;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,47 +82,55 @@ public class PlaybackActivity extends Activity {
             mSession.setActive(true);
 
             setMediaController(new MediaController(this, mSession.getSessionToken()));
+            setPlaybackState(PlaybackState.STATE_NONE);
         }
     }
 
+    private int getPlaybackState() {
+        PlaybackState state = getMediaController().getPlaybackState();
+        if (state != null) {
+            return state.getState();
+        } else {
+            return PlaybackState.STATE_NONE;
+        }
+    }
+
+    private void setPlaybackState(int state) {
+        PlaybackState.Builder stateBuilder = new PlaybackState.Builder()
+            .setActions(getAvailableActions(state));
+        stateBuilder.setState(state, mPosition, 1.0f);
+        mSession.setPlaybackState(stateBuilder.build());
+    }
+
     private void playPause(boolean doPlay) {
-        if (mPlaybackState == LeanbackPlaybackState.IDLE) {
+        if (getPlaybackState() == PlaybackState.STATE_NONE) {
             setupCallbacks();
         }
 
-        if (doPlay && mPlaybackState != LeanbackPlaybackState.PLAYING) {
-            mPlaybackState = LeanbackPlaybackState.PLAYING;
+        if (doPlay && getPlaybackState() != PlaybackState.STATE_PLAYING) {
             if (mPosition > 0) {
                 mVideoView.seekTo(mPosition);
             }
             mVideoView.start();
             mStartTimeMillis = System.currentTimeMillis();
+            setPlaybackState(PlaybackState.STATE_PLAYING);
         } else {
-            mPlaybackState = LeanbackPlaybackState.PAUSED;
             int timeElapsedSinceStart = (int) (System.currentTimeMillis() - mStartTimeMillis);
             setPosition(mPosition + timeElapsedSinceStart);
             mVideoView.pause();
+            setPlaybackState(PlaybackState.STATE_PAUSED);
         }
-        updatePlaybackState();
     }
 
-    private void updatePlaybackState() {
-        PlaybackState.Builder stateBuilder = new PlaybackState.Builder()
-                .setActions(getAvailableActions());
-        int state = PlaybackState.STATE_PLAYING;
-        if (mPlaybackState == LeanbackPlaybackState.PAUSED ||
-                mPlaybackState == LeanbackPlaybackState.IDLE) {
-            state = PlaybackState.STATE_PAUSED;
-        }
-        stateBuilder.setState(state, mPosition, 1.0f);
-        mSession.setPlaybackState(stateBuilder.build());
-    }
-
-    private long getAvailableActions() {
+    private long getAvailableActions(int nextState) {
         long actions = PlaybackState.ACTION_PLAY |
-                PlaybackState.ACTION_PLAY_FROM_MEDIA_ID;
+            PlaybackState.ACTION_PLAY_FROM_MEDIA_ID |
+            PlaybackState.ACTION_PLAY_FROM_SEARCH |
+            //PlaybackState.ACTION_SKIP_TO_NEXT |
+            //PlaybackState.ACTION_SKIP_TO_PREVIOUS |
+            PlaybackState.ACTION_PAUSE;
 
-        if (mPlaybackState == LeanbackPlaybackState.PLAYING) {
+        if (nextState == PlaybackState.STATE_PLAYING) {
             actions |= PlaybackState.ACTION_PAUSE;
         }
 
@@ -185,7 +192,7 @@ public class PlaybackActivity extends Activity {
                 }
                 Utils.showToast(PlaybackActivity.this, msg);
                 mVideoView.stopPlayback();
-                mPlaybackState = LeanbackPlaybackState.IDLE;
+                setPlaybackState(PlaybackState.STATE_STOPPED);
                 return false;
             }
         });
@@ -193,7 +200,7 @@ public class PlaybackActivity extends Activity {
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                if (mPlaybackState == LeanbackPlaybackState.PLAYING) {
+                if (getPlaybackState() == PlaybackState.STATE_PLAYING) {
                     mVideoView.start();
                 }
             }
@@ -202,7 +209,7 @@ public class PlaybackActivity extends Activity {
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mPlaybackState = LeanbackPlaybackState.IDLE;
+                setPlaybackState(PlaybackState.STATE_STOPPED);
             }
         });
     }
@@ -270,7 +277,7 @@ public class PlaybackActivity extends Activity {
             Sermon sermon = Sermon.fromMediaInfo(VideoProvider.getMedia(mediaId));
             if (sermon != null) {
                 setVideoPath(sermon.getVideoUrl());
-                mPlaybackState = LeanbackPlaybackState.PAUSED;
+                setPlaybackState(PlaybackState.STATE_PAUSED);
                 updateMetadata(sermon);
                 playPause(extras.getBoolean(AUTO_PLAY));
             }
@@ -280,25 +287,30 @@ public class PlaybackActivity extends Activity {
         public void onSeekTo(long pos) {
             setPosition((int) pos);
             mVideoView.seekTo(mPosition);
-            updatePlaybackState();
         }
 
         @Override
         public void onFastForward() {
             Log.d(TAG, "received fastForward in MediaSession.Callback");
             if (mDuration != -1) {
+                // Fast forward 10 seconds
+                int prevState = getPlaybackState();
+                setPlaybackState(PlaybackState.STATE_FAST_FORWARDING);
                 setPosition(mVideoView.getCurrentPosition() + SEEK_DURATION);
                 mVideoView.seekTo(mPosition);
-                updatePlaybackState();
+                setPlaybackState(prevState);
             }
         }
 
         @Override
         public void onRewind() {
             Log.d(TAG, "received rewind in MediaSession.Callback");
+            // rewind 10 seconds
+            int prevState = getPlaybackState();
+            setPlaybackState(PlaybackState.STATE_REWINDING);
             setPosition(mVideoView.getCurrentPosition() - SEEK_DURATION);
             mVideoView.seekTo(mPosition);
-            updatePlaybackState();
+            setPlaybackState(prevState);
         }
     }
 

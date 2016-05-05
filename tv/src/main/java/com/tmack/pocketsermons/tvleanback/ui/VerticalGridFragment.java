@@ -2,6 +2,7 @@ package com.tmack.pocketsermons.tvleanback.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
@@ -20,6 +21,7 @@ import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -42,6 +44,10 @@ public class VerticalGridFragment extends android.support.v17.leanback.app.Verti
 
         setTitle(getString(R.string.vertical_grid_title));
 
+        if (savedInstanceState == null) {
+            prepareEntranceTransition();
+        }
+
         setupFragment();
     }
 
@@ -52,17 +58,20 @@ public class VerticalGridFragment extends android.support.v17.leanback.app.Verti
 
         mAdapter = new ArrayObjectAdapter(new CardPresenter());
 
-        long seed = System.nanoTime();
-
-        Map<String, List<MediaInfo>> mediaList = VideoProvider.getMediaListBySeries();
-
-        for (Map.Entry<String, List<MediaInfo>> entry : mediaList.entrySet()) {
-            List<MediaInfo> list = entry.getValue();
-            Collections.shuffle(list, new Random(seed));
-            for (MediaInfo media : list) {
-                mAdapter.add(media);
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                long seed = System.nanoTime();
+                Map<String, List<MediaInfo>> mediaList = VideoProvider.getMediaListBySeries();
+                for (Map.Entry<String, List<MediaInfo>> entry : mediaList.entrySet()) {
+                    List<MediaInfo> list = entry.getValue();
+                    Collections.shuffle(list, new Random(seed));
+                    for (MediaInfo media : list) {
+                        mAdapter.add(media);
+                    }
+                }
+                startEntranceTransition();
             }
-        }
+        }, 500);
 
         setAdapter(mAdapter);
 

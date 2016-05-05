@@ -28,18 +28,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.common.images.WebImage;
 import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.tmack.pocketsermons.tvleanback.R;
 import com.tmack.pocketsermons.data.VideoItemMapLoader;
 import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.PicassoBackgroundManagerTarget;
+import com.tmack.pocketsermons.tvleanback.R;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -75,6 +73,7 @@ public class MainFragment extends BrowseFragment implements
         prepareBackgroundManager();
         setupUIElements();
         setupEventListeners();
+        prepareEntranceTransition();
     }
 
     @Override
@@ -175,6 +174,7 @@ public class MainFragment extends BrowseFragment implements
             }
         } else {
             Log.e(TAG, "An error occurred fetching videos");
+            Toast.makeText(getActivity(), R.string.videos_loading_error, Toast.LENGTH_LONG).show();
         }
 
         // TODO: customize preferences header and row items
@@ -191,6 +191,7 @@ public class MainFragment extends BrowseFragment implements
 
         // TODO: build recommendation engine support for home screen tiles
         // updateRecommendations();
+        startEntranceTransition();
     }
 
     /*
@@ -282,10 +283,12 @@ public class MainFragment extends BrowseFragment implements
                 // TODO: figure out what these views are for... thinking just examples
                 if (((String) item).contains(getString(R.string.grid_view))) {
                     Intent intent = new Intent(getActivity(), VerticalGridActivity.class);
-                    startActivity(intent);
-                    //} else if (((String) item).contains(getString(R.string.error_fragment))) {
-                    //    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
-                    //    startActivity(intent);
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity())
+                        .toBundle();
+                    startActivity(intent, bundle);
+                //} else if (((String) item).contains(getString(R.string.error_fragment))) {
+                //    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
+                //    startActivity(intent);
                 } else {
                     Toast.makeText(getActivity(), ((String) item), Toast.LENGTH_SHORT).show();
                 }

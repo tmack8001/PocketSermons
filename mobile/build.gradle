@@ -69,7 +69,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.1'
     // include both of Google's libraries GSON and Volley for API integration
     compile 'com.google.code.gson:gson:2.4'
-    compile files('../libs/volley.jar')
     // include ShowcaseView
     compile 'com.github.amlcurran.showcaseview:library:5.0.0'
     compile project(':CastCompanionLibrary')

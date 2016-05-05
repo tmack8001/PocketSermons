@@ -10,9 +10,11 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
-
+import com.google.android.libraries.cast.companionlibrary.cast.exceptions.CastException;
+import com.google.android.libraries.cast.companionlibrary.cast.exceptions.NoConnectionException;
+import com.google.android.libraries.cast.companionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
 import com.tmack.pocketsermons.common.R;
-
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -43,11 +45,8 @@ public class Utils {
 
     /**
      * Shows an "Oops" error dialog with a text provided by a resource ID
-     *
-     * @param context
-     * @param resourceId
      */
-    public static final void showOopsDialog(Context context, int resourceId) {
+    public static void showOopsDialog(Context context, int resourceId) {
         new AlertDialog.Builder(context).setTitle(R.string.oops)
                 .setMessage(context.getString(resourceId))
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -59,6 +58,39 @@ public class Utils {
                 .setIcon(R.drawable.ic_action_alerts_and_states_warning)
                 .create()
                 .show();
+    }
+
+    /**
+     * A utility method to handle a few types of exceptions that are commonly thrown by the cast
+     * APIs in this library. It has special treatments for
+     * {@link TransientNetworkDisconnectionException}, {@link NoConnectionException} and shows an
+     * "Oops" dialog conveying certain messages to the user. The following resource IDs can be used
+     * to control the messages that are shown:
+     * <p>
+     * <ul>
+     * <li><code>R.string.connection_lost_retry</code></li>
+     * <li><code>R.string.connection_lost</code></li>
+     * <li><code>R.string.failed_to_perform_action</code></li>
+     * </ul>
+     */
+    public static void handleException(Context context, Exception e) {
+        int resourceId;
+        if (e instanceof TransientNetworkDisconnectionException) {
+            // temporary loss of connectivity
+            resourceId = R.string.connection_lost_retry;
+        } else if (e instanceof NoConnectionException) {
+            // connection gone
+            resourceId = R.string.connection_lost;
+        } else if (e instanceof RuntimeException ||
+            e instanceof IOException ||
+            e instanceof CastException) {
+            // something more serious happened
+            resourceId = R.string.failed_to_perform_action;
+        } else {
+            // well, who knows!
+            resourceId = R.string.failed_to_perform_action;
+        }
+        showOopsDialog(context, resourceId);
     }
 
     /**
@@ -80,9 +112,6 @@ public class Utils {
 
     /**
      * Shows a (long) toast.
-     *
-     * @param context
-     * @param msg
      */
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -90,9 +119,6 @@ public class Utils {
 
     /**
      * Shows a (long) toast.
-     *
-     * @param context
-     * @param resourceId
      */
     public static void showToast(Context context, int resourceId) {
         Toast.makeText(context, context.getString(resourceId), Toast.LENGTH_LONG).show();
@@ -100,11 +126,8 @@ public class Utils {
 
     /**
      * Shows an error dialog with a given text message.
-     *
-     * @param context
-     * @param errorString
      */
-    public static final void showErrorDialog(Context context, String errorString) {
+    public static void showErrorDialog(Context context, String errorString) {
         new AlertDialog.Builder(context).setTitle(R.string.error)
                 .setMessage(errorString)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

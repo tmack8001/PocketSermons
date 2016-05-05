@@ -3,6 +3,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature
+            android:name="android.hardware.microphone"
+            android:required="false" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -18,14 +23,15 @@
         android:banner="@drawable/pocketsermons_banner"
         android:label="@string/app_name"
         android:logo="@drawable/pocketsermons_banner"
-        android:theme="@style/Theme.PocketSermons.Leanback" >
+        android:theme="@style/Theme.Leanback" >
 
         <activity
             android:name=".ui.MainActivity"
             android:icon="@drawable/pocketsermons_banner"
             android:label="@string/app_name"
             android:logo="@drawable/pocketsermons_banner"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Leanback.Browse" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,11 +42,13 @@
         <activity
             android:name=".ui.VerticalGridActivity"
             android:exported="true"
-            android:parentActivityName=".ui.MainActivity" />
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/Theme.Leanback.VerticalGrid"/>
 
         <activity
             android:name=".ui.DetailsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Leanback.Details"/>
 
         <activity android:name=".ui.PlaybackActivity" />
     </application>

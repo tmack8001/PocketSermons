@@ -100,7 +100,6 @@ public class CardPresenter extends Presenter {
             Picasso.with(mContext)
                     .load(uri.toString())
                     .resize(CARD_WIDTH, CARD_HEIGHT)
-                    .centerCrop()
                     .error(mDefaultCardImage)
                     .into(mImageCardViewTarget);
         }

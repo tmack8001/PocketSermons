@@ -33,7 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/shadow7"
+        app:auto_setup="true"
         android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

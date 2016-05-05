@@ -20,12 +20,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.cast.ApplicationMetadata;
 import com.google.android.libraries.cast.companionlibrary.cast.BaseCastManager;
 import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
 import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumer;
@@ -37,7 +36,6 @@ import com.tmack.pocketsermons.R;
 import com.tmack.pocketsermons.common.utils.Utils;
 import com.tmack.pocketsermons.mediaPlayer.LocalVideoActivity;
 import com.tmack.pocketsermons.settings.CastPreference;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,11 +77,7 @@ public class SermonBrowserActivity extends AppCompatActivity {
 
         setupToolbar();
         setupViewPager();
-        setupMiniController();
         setupCastListener();
-
-        // reconnect session with ChromeCast if Activity was killed or disconnected
-        mCastManager.reconnectSessionIfPossible(20);
 
         pageView(mTracker);
     }
@@ -98,7 +92,19 @@ public class SermonBrowserActivity extends AppCompatActivity {
 
             @Override
             public void onFailed(int resourceId, int statusCode) {
+                String reason = "Not Available";
+                if (resourceId > 0) {
+                    reason = getString(resourceId);
+                }
+                Log.e(TAG, "Action failed, reason: " + reason + ", status code: " + statusCode);
+            }
 
+            @Override public void onApplicationConnected(ApplicationMetadata appMetadata, String sessionId, boolean wasLaunched) {
+                invalidateOptionsMenu();
+            }
+
+            @Override public void onDisconnected() {
+                invalidateOptionsMenu();
             }
 
             @Override
@@ -129,12 +135,6 @@ public class SermonBrowserActivity extends AppCompatActivity {
                         }
                     }, 1000);
                 }
-            }
-
-            @Override
-            public void onConnectionFailed(ConnectionResult result) {
-                Log.d(TAG, "onConnectionFailed(): " + result.toString());
-                Utils.showToast(SermonBrowserActivity.this, R.string.failed_to_connect);
             }
         };
     }
@@ -176,10 +176,8 @@ public class SermonBrowserActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (mCastManager.onDispatchVolumeKeyEvent(event, PocketSermonsMobileApplication.VOLUME_INCREMENT)) {
-            return true;
-        }
-        return super.dispatchKeyEvent(event);
+        return mCastManager.onDispatchVolumeKeyEvent(event, PocketSermonsMobileApplication.VOLUME_INCREMENT)
+            || super.dispatchKeyEvent(event);
     }
 
     @Override
@@ -203,10 +201,6 @@ public class SermonBrowserActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy is called");
-        if (null != mCastManager) {
-            mMini.removeOnMiniControllerChangedListener(mCastManager);
-            mCastManager.removeMiniController(mMini);
-        }
         super.onDestroy();
     }
 
@@ -231,11 +225,6 @@ public class SermonBrowserActivity extends AppCompatActivity {
             adapter.addFragment(new SermonListFragment(), getString(R.string.sermons));
             mViewPager.setAdapter(adapter);
         }
-    }
-
-    private void setupMiniController() {
-        mMini = (MiniController) findViewById(R.id.miniController1);
-        mCastManager.addMiniController(mMini);
     }
 
     static class Adapter extends FragmentPagerAdapter {

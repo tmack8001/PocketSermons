@@ -40,6 +40,7 @@
     <string name="video_error_media_load_timeout">Media loading timed out</string>
     <string name="video_error_server_unaccessible">Media server was not reachable</string>
     <string name="video_error_unknown_error">Failed to load video</string>
+    <string name="videos_loading_error">Failed to load videos. Please check your network connection.</string>
     <string name="connection_temp_lost">Connection to the cast device is temporarily lost</string>
     <string name="connection_recovered">Connection to the cast device is recovered</string>
     <string name="connection_lost_retry">Connection to the cast device has been temporarily lost. Application is trying to recover connection, please try again later</string>

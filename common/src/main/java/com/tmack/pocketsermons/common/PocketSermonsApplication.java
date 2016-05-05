@@ -29,7 +29,9 @@ public class PocketSermonsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         APPLICATION_ID = getString(R.string.app_id);
+        PROPERTY_ID = getString(R.string.ga_property_id);
 
         AnalyticsTrackers.initialize(this);
 

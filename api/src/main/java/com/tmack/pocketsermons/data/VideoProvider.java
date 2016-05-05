@@ -155,7 +155,7 @@ public class VideoProvider {
         // load API data
         sCatalogUrl = sContext.getString(R.string.api_host) +
                 sContext.getString(R.string.api_version) + sContext.getString(R.string.sermons_path);
-        requestQueue.add(new VideoProvider().parseUrl(sCatalogUrl));
+        requestQueue.add(new VideoProvider().fetchJSON(sCatalogUrl));
         while (null == SermonsResponse.CACHED_SERMONS_RESPONSE) {
             Thread.sleep(1000);
         }
@@ -240,7 +240,8 @@ public class VideoProvider {
         return "video/mp4";
     }
 
-    protected JsonObjectRequest parseUrl(final String urlString) {
+    protected JsonObjectRequest fetchJSON(final String urlString) {
+        Log.d(TAG, "Fetching JSON from URL: " + urlString);
         JsonObjectRequest request = null;
         // if already requested data via API read application state
         if (SermonsResponse.CACHED_SERMONS_RESPONSE == null) {
@@ -260,7 +261,7 @@ public class VideoProvider {
                                 // TODO: replace with Database entries for the Sermons API response
                                 SermonsResponse.CACHED_SERMONS_RESPONSE = gson.fromJson(response.toString(), SermonsResponse.class);
                             } catch (JSONException e) {
-                                Log.d(TAG, "API request error", e);
+                                Log.e(TAG, "Failed to parse API response", e);
                                 e.printStackTrace();
                                 Utils.showToast(sContext, R.string.unknown_server_error);
                             }
@@ -269,7 +270,7 @@ public class VideoProvider {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            Log.d(TAG, "API request failed", volleyError);
+                            Log.e(TAG, "API request failed", volleyError);
                             VolleyLog.e("Error: ", volleyError.getMessage());
                             Utils.showToast(sContext, R.string.network_error);
                         }

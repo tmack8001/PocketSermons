@@ -11,13 +11,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -39,13 +39,11 @@ import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
 import com.google.android.libraries.cast.companionlibrary.cast.callbacks.VideoCastConsumerImpl;
-import com.google.android.libraries.cast.companionlibrary.widgets.MiniController;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.tmack.pocketsermons.AnalyticsTrackers;
 import com.tmack.pocketsermons.PocketSermonsMobileApplication;
 import com.tmack.pocketsermons.R;
-import com.tmack.pocketsermons.common.PocketSermonsApplication;
 import com.tmack.pocketsermons.settings.CastPreference;
 import com.tmack.pocketsermons.common.utils.Utils;
 import com.tmack.pocketsermons.utils.CastExceptionUtils;
@@ -70,7 +68,6 @@ public class LocalVideoActivity extends AppCompatActivity {
     private VideoView mVideoView;
     private ImageView mCoverArt;
 
-    private Toolbar mToolbar;
     private View mControllers;
     private TextView mStartText;
     private TextView mEndText;
@@ -88,11 +85,8 @@ public class LocalVideoActivity extends AppCompatActivity {
 
     private VideoCastManager mCastManager;
     private VideoCastConsumerImpl mCastConsumer;
-    private MiniController mMini;
     protected MediaInfo mRemoteMediaInformation;
 
-    private Point mDisplaySize;
-    private boolean mShouldStartPlayback;
     private boolean mControllersVisible;
     private int mDuration;
 
@@ -127,20 +121,19 @@ public class LocalVideoActivity extends AppCompatActivity {
         mTracker = AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
         setupToolbar();
         setupControlsCallbacks();
-        setupMiniController();
         setupCastListener();
 
         Bundle b = getIntent().getExtras();
         if (null != b) {
             mSelectedMedia = com.google.android.libraries.cast.companionlibrary.utils.Utils
                     .bundleToMediaInfo(getIntent().getBundleExtra("media"));
-            mShouldStartPlayback = b.getBoolean("shouldStart", false);
+            boolean shouldStartPlayback = b.getBoolean("shouldStart", false);
             int startPosition = b.getInt("startPosition", 0);
 
             mVideoView.setVideoURI(Uri.parse(mSelectedMedia.getContentId()));
             Log.d("TAG", "Setting url of the VideoView to: " + mSelectedMedia.getContentId());
 
-            if (mShouldStartPlayback) {
+            if (shouldStartPlayback) {
                 // this will be the case only if we are coming from the
                 // CastControllerActivity by disconnecting from a device
                 mPlaybackState = PlaybackState.PLAYING;
@@ -511,7 +504,6 @@ public class LocalVideoActivity extends AppCompatActivity {
             updatePlayButton(PlaybackState.PAUSED);
         }
         mCastManager.removeVideoCastConsumer(mCastConsumer);
-        mMini.removeOnMiniControllerChangedListener(mCastManager);
         mCastManager.decrementUiCounter();
     }
 
@@ -525,8 +517,6 @@ public class LocalVideoActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.d(TAG, "onDestroy is called");
         if (null != mCastManager) {
-            mMini.removeOnMiniControllerChangedListener(mCastManager);
-            mCastManager.removeMiniController(mMini);
             mCastConsumer = null;
         }
         stopControllersTimer();
@@ -546,6 +536,11 @@ public class LocalVideoActivity extends AppCompatActivity {
         mCastManager = VideoCastManager.getInstance();
         mCastManager.addVideoCastConsumer(mCastConsumer);
         mCastManager.incrementUiCounter();
+        if (mCastManager.isConnected()) {
+            updatePlaybackLocation(PlaybackLocation.REMOTE);
+        } else {
+            updatePlaybackLocation(PlaybackLocation.LOCAL);
+        }
         super.onResume();
     }
 
@@ -668,6 +663,11 @@ public class LocalVideoActivity extends AppCompatActivity {
         });
     }
 
+    @Override public boolean dispatchKeyEvent(KeyEvent event) {
+        return mCastManager.onDispatchVolumeKeyEvent(event, PocketSermonsMobileApplication.VOLUME_INCREMENT)
+            || super.dispatchKeyEvent(event);
+    }
+
     private void updateSeekbar(int position, int duration) {
         mSeekbar.setProgress(position);
         mSeekbar.setMax(duration);
@@ -725,6 +725,7 @@ public class LocalVideoActivity extends AppCompatActivity {
     }
 
     private void updateMetadata(boolean visible) {
+        Point displaySize;
         if (!visible) {
             mMetadataView.setVisibility(View.GONE);
             mTitleView.setVisibility(View.GONE);
@@ -732,10 +733,10 @@ public class LocalVideoActivity extends AppCompatActivity {
             mDescriptionView.setVisibility(View.GONE);
 
             // set layout of videoView
-            mDisplaySize = Utils.getDisplaySize(this);
+            displaySize = Utils.getDisplaySize(this);
             RelativeLayout.LayoutParams layoutParams = new
-                    RelativeLayout.LayoutParams(mDisplaySize.x,
-                    mDisplaySize.y + getSupportActionBar().getHeight());
+                    RelativeLayout.LayoutParams(displaySize.x,
+                    displaySize.y + getSupportActionBar().getHeight());
             layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
             mVideoView.setLayoutParams(layoutParams);
             mVideoView.invalidate();
@@ -751,10 +752,10 @@ public class LocalVideoActivity extends AppCompatActivity {
             mDescriptionView.setVisibility(View.VISIBLE);
 
             // set layout of videoView
-            mDisplaySize = Utils.getDisplaySize(this);
+            displaySize = Utils.getDisplaySize(this);
             RelativeLayout.LayoutParams layoutParams = new
-                    RelativeLayout.LayoutParams(mDisplaySize.x,
-                    (int) (mDisplaySize.x * ASPECT_RATIO));
+                    RelativeLayout.LayoutParams(displaySize.x,
+                    (int) (displaySize.x * ASPECT_RATIO));
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             mVideoView.setLayoutParams(layoutParams);
             mVideoView.invalidate();
@@ -783,27 +784,21 @@ public class LocalVideoActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         // Configure the Toolbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(mSelectedMedia.getMetadata().getString(MediaMetadata.KEY_TITLE));
+        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // TODO: animate to fade in/out as user scrolls (if ever implemented ScrollView on this screen)
 
         // Handle Back Navigation
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocalVideoActivity.this.onBackPressed();
             }
         });
-    }
-
-    private void setupMiniController() {
-        mMini = (MiniController) findViewById(R.id.miniController1);
-        mCastManager.addMiniController(mMini);
     }
 
     private void loadViews() {

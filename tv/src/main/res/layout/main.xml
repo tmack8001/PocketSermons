@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_browse_fragment"
-    android:name="com.tmack.pocketsermons.tvleanback.ui.MainFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:deviceIds="tv"
-    tools:ignore="MergeRootFrame" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_frame"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <fragment
+      android:id="@+id/main_browse_fragment"
+      android:name="com.tmack.pocketsermons.tvleanback.ui.MainFragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
+</FrameLayout>

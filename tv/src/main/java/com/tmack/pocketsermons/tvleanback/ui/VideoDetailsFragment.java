@@ -3,6 +3,7 @@ package com.tmack.pocketsermons.tvleanback.ui;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BackgroundManager;
@@ -10,8 +11,11 @@ import android.support.v17.leanback.app.DetailsFragment;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
+import android.support.v17.leanback.widget.DetailsOverviewLogoPresenter;
 import android.support.v17.leanback.widget.DetailsOverviewRow;
 import android.support.v17.leanback.widget.DetailsOverviewRowPresenter;
+import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
+import android.support.v17.leanback.widget.FullWidthDetailsOverviewSharedElementHelper;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.ListRow;
@@ -25,8 +29,11 @@ import android.support.v17.leanback.widget.SparseArrayObjectAdapter;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -36,13 +43,12 @@ import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.libraries.cast.companionlibrary.utils.Utils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.tmack.pocketsermons.tvleanback.R;
 import com.tmack.pocketsermons.common.model.Sermon;
 import com.tmack.pocketsermons.data.VideoProvider;
 import com.tmack.pocketsermons.tvleanback.PicassoBackgroundManagerTarget;
+import com.tmack.pocketsermons.tvleanback.R;
 import com.tmack.pocketsermons.tvleanback.presenter.CardPresenter;
 import com.tmack.pocketsermons.tvleanback.presenter.DetailsDescriptionPresenter;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +75,7 @@ public class VideoDetailsFragment extends DetailsFragment {
     private Drawable mDefaultBackground;
     private Target mBackgroundTarget;
     private DisplayMetrics mMetrics;
+    private FullWidthDetailsOverviewSharedElementHelper mHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,15 +86,16 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         mSelectedMedia = Utils.bundleToMediaInfo(getActivity().getIntent()
                 .getBundleExtra(DetailsActivity.MEDIA));
+
         if (mSelectedMedia != null || checkGlobalSearchIntent()) {
             removeNotification(getActivity().getIntent()
                     .getIntExtra(DetailsActivity.NOTIFICATION_ID, NO_NOTIFICATION));
             setupAdapter();
             setupDetailsOverviewRow();
-            setupDetailsOverviewRowPresenter();
             setupMovieListRow();
-            setupMovieListRowPresenter();
             updateBackground(Sermon.fromMediaInfo(mSelectedMedia));
+
+            // When a Related Movie item is clicked.
             setOnItemViewClickedListener(new ItemViewClickedListener());
         } else {
             Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -143,30 +151,93 @@ public class VideoDetailsFragment extends DetailsFragment {
     }
 
     private void setupAdapter() {
+        // Set detail background and style
+        FullWidthDetailsOverviewRowPresenter detailsPresenter =
+            new FullWidthDetailsOverviewRowPresenter(new DetailsDescriptionPresenter(),
+                                                     new MediaDetailsOverviewLogoPresenter());
+        detailsPresenter.setBackgroundColor(getResources().getColor(R.color.selected_background));
+        detailsPresenter.setInitialState(FullWidthDetailsOverviewRowPresenter.STATE_HALF);
+
+        // Hook up transition element
+        mHelper = new FullWidthDetailsOverviewSharedElementHelper();
+        mHelper.setSharedElementEnterTransition(getActivity(), DetailsActivity.SHARED_ELEMENT_NAME);
+        detailsPresenter.setListener(mHelper);
+        detailsPresenter.setParticipatingEntranceTransition(false);
+        prepareEntranceTransition();
+
+        detailsPresenter.setOnActionClickedListener(new OnActionClickedListener() {
+            @Override public void onActionClicked(Action action) {
+                if (action.getId() == ACTION_WATCH_MEDIA) {
+                    Intent intent = new Intent(getActivity(), PlaybackActivity.class);
+                    intent.putExtra(DetailsActivity.MEDIA, Utils.mediaInfoToBundle(mSelectedMedia));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         mPresenterSelector = new ClassPresenterSelector();
+        mPresenterSelector.addClassPresenter(DetailsOverviewRow.class, detailsPresenter);
+        mPresenterSelector.addClassPresenter(ListRow.class, new ListRowPresenter());
         mAdapter = new ArrayObjectAdapter(mPresenterSelector);
         setAdapter(mAdapter);
     }
 
+    static class MediaDetailsOverviewLogoPresenter extends DetailsOverviewLogoPresenter {
+        static class ViewHolder extends DetailsOverviewLogoPresenter.ViewHolder {
+            public ViewHolder(View view) {
+                super(view);
+            }
+
+            public FullWidthDetailsOverviewRowPresenter getParentPresenter() {
+                return mParentPresenter;
+            }
+
+            public FullWidthDetailsOverviewRowPresenter.ViewHolder getParentViewHolder() {
+                return mParentViewHolder;
+            }
+        }
+
+        @Override public Presenter.ViewHolder onCreateViewHolder(ViewGroup parent) {
+            ImageView imageView = (ImageView) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.lb_fullwidth_details_overview_logo, parent, false);
+            int width = Utils.convertDpToPixel(parent.getContext(), DETAIL_THUMB_WIDTH);
+            int height = Utils.convertDpToPixel(parent.getContext(), DETAIL_THUMB_HEIGHT);
+            imageView.setLayoutParams(new ViewGroup.MarginLayoutParams(width, height));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            return new ViewHolder(imageView);
+        }
+
+        @Override public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
+            DetailsOverviewRow row = (DetailsOverviewRow) item;
+            ImageView imageView = ((ImageView) viewHolder.view);
+            imageView.setImageDrawable(row.getImageDrawable());
+            if (isBoundToImage((ViewHolder) viewHolder, row)) {
+                MediaDetailsOverviewLogoPresenter.ViewHolder vh =
+                    (MediaDetailsOverviewLogoPresenter.ViewHolder) viewHolder;
+                vh.getParentPresenter().notifyOnBindLogo(vh.getParentViewHolder());
+            }
+        }
+    }
+
     private void setupDetailsOverviewRow() {
         Log.d(TAG, "setupDetailsOverviewRow: " + mSelectedMedia.toString());
+
         final DetailsOverviewRow row = new DetailsOverviewRow(mSelectedMedia);
-        row.setImageDrawable(getResources().getDrawable(R.drawable.default_background));
-        int width = Utils.convertDpToPixel(getActivity(), DETAIL_THUMB_WIDTH);
-        int height = Utils.convertDpToPixel(getActivity(), DETAIL_THUMB_HEIGHT);
 
         Glide.with(getActivity())
                 .load(Sermon.fromMediaInfo(mSelectedMedia).getCardImageUrl())
-                .centerCrop()
+                .asBitmap()
+                .dontAnimate()
                 .error(R.drawable.default_background)
-                .into(new SimpleTarget<GlideDrawable>(width, height) {
+                .into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(GlideDrawable resource,
-                                                GlideAnimation<? super GlideDrawable>
-                                                        glideAnimation) {
+                    public void onResourceReady(final Bitmap resource,
+                                                GlideAnimation glideAnimation) {
                         Log.d(TAG, "details overview card image url ready: " + resource);
-                        row.setImageDrawable(resource);
-                        mAdapter.notifyArrayItemRangeChanged(0, mAdapter.size());
+                        row.setImageBitmap(getActivity(), resource);
+                        startEntranceTransition();
                     }
                 });
 
@@ -178,34 +249,6 @@ public class VideoDetailsFragment extends DetailsFragment {
         row.setActionsAdapter(adapter);
 
         mAdapter.add(row);
-    }
-
-    private void setupDetailsOverviewRowPresenter() {
-        // Set detail background and style
-        DetailsOverviewRowPresenter detailsPresenter =
-                new DetailsOverviewRowPresenter(new DetailsDescriptionPresenter());
-        detailsPresenter.setBackgroundColor(getResources().getColor(R.color.selected_background));
-        detailsPresenter.setStyleLarge(true);
-
-        // Hook up transition element
-        detailsPresenter.setSharedElementEnterTransition(getActivity(),
-                DetailsActivity.SHARED_ELEMENT_NAME);
-
-        detailsPresenter.setOnActionClickedListener(new OnActionClickedListener() {
-            @Override
-            public void onActionClicked(Action action) {
-                if (action.getId() == ACTION_WATCH_MEDIA) {
-                    Intent intent = new Intent(getActivity(), PlaybackActivity.class);
-                    intent.putExtra(DetailsActivity.MEDIA, Utils.mediaInfoToBundle(mSelectedMedia));
-                    startActivity(intent);
-                } else {
-                    // TODO: add action to favorite a media clip
-                    Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        mPresenterSelector.addClassPresenter(DetailsOverviewRow.class, detailsPresenter);
     }
 
     private void setupMovieListRow() {
@@ -234,10 +277,6 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         HeaderItem header = new HeaderItem(0, subcategories[0]);
         mAdapter.add(new ListRow(header, listRowAdapter));
-    }
-
-    private void setupMovieListRowPresenter() {
-        mPresenterSelector.addClassPresenter(ListRow.class, new ListRowPresenter());
     }
 
     // TODO: this is also shared from MainActivity maybe make external?
